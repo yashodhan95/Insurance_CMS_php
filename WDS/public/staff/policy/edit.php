@@ -7,34 +7,49 @@ if(!isset($_GET['id'])) {
 }
 
 $id =$_GET['id'];
-$Policy_no = '';
-$P_Type = '';
-$Cid = '';
-$Start_Date = '';
-$End_Date = '';
-$Premium = '';
-$Status = '';
+
+#$sql = "Insert into policy ";
+#$sql .= "(Policy_no, P_Type, Cid, Start_Date, End_Date, Premium, Status) ";
 
 if(is_post_request()) {
 
   // Handle form values sent by new.php
+  $POLICY_ARRAY = [];
+  $POLICY_ARRAY['Policy_no'] = $_POST['Policy_no'] ?? '';
+  $POLICY_ARRAY['P_Type'] = $_POST['P_Type'] ?? '';
+  $POLICY_ARRAY['Cid'] = $_POST['Cid'] ?? '';
+  $POLICY_ARRAY['Start_Date'] = $_POST['Start_Date'] ?? '';
+  $POLICY_ARRAY['End_Date'] = $_POST['End_Date'] ?? '';
+  $POLICY_ARRAY['Premium'] = $_POST['Premium'] ?? '';
+  $POLICY_ARRAY['Status'] = $_POST['Status'] ?? '';
 
-  $Policy_no = $_POST['Policy_no'] ?? '';
-  $P_Type = $_POST['P_Type'] ?? '';
-  $Cid = $_POST['Cid'] ?? '';
-  $Start_Date = $_POST['Start_Date'] ?? '';
-  $End_Date = $_POST['End_Date'] ?? '';
-  $Premium = $_POST['Premium'] ?? '';
-  $Status = $_POST['Status'] ?? '';
+  $sql = "UPDATE policy SET ";
+  $sql .= "Policy_no='" . $POLICY_ARRAY['Policy_no'] . "',";
+  $sql .= "P_Type='" . $POLICY_ARRAY['P_Type'] . "',";
+  $sql .= "Cid='" . $POLICY_ARRAY['Cid'] . "',";
+  $sql .= "Start_Date='" . $POLICY_ARRAY['Start_Date'] . "',";
+  $sql .= "End_Date='" . $POLICY_ARRAY['End_Date'] . "',";
+  $sql .= "Premium='" . $POLICY_ARRAY['Premium'] . "',";
+  $sql .= "Status = '" . $POLICY_ARRAY['Status'] . "' ";
+  $sql .= "WHERE Policy_no='" . $POLICY_ARRAY['Policy_no'] . "' ";
+  $sql .= "Limit 1;";
 
-  echo "Form parameters<br />";
-  echo "Policy_no: " . $Policy_no . "<br />";
-  echo "P_Type: " . $P_Type . "<br />";
-  echo "Cid: " . $Cid . "<br />";
-  echo "Start_Date: " . $Start_Date . "<br />";
-  echo "End_Date: " . $End_Date . "<br />";
-  echo "Premium: " . $Premium . "<br />";
-  echo "Status: " . $Status . "<br />";
+  $result = mysqli_query($db, $sql);
+  //for insert Statusment the result is True or False
+
+  if($result){
+    $new_id = mysqli_insert_id($db);
+    redirect_to(url_for('/staff/policy/show.php?id=' . $id));
+  } else {
+    //insert failed
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
+  }
+}
+
+else{
+  $POLICY_ARRAY = find_record("policy", "Policy_no" ,$id);
 }
 
 ?>
@@ -52,41 +67,41 @@ if(is_post_request()) {
       <dl>
         <dt>Policy Number</dt>
         <dd><input type="number" name="Policy_no" min="100000000000" max="999999999999"
-        value="<?php echo h($Policy_no); ?>" /></dd>
+        value="<?php echo h($POLICY_ARRAY['Policy_no']); ?>" /></dd>
       </dl>
       
       <dl>
         <dt>Policy Type</dt>
-        <dd><input type="radio" id = "Auto" name="P_Type" value="A" <?php if($P_Type == "A") { echo "checked";} ?>
+        <dd><input type="radio" id = "Auto" name="P_Type" value="A" <?php if($POLICY_ARRAY['P_Type'] == "A") { echo "checked";} ?>
         /><label for="Auto">Auto</label></dd>
-        <dd><input type="radio" id = "Home" name="P_Type" value="H" <?php if($P_Type == "H") { echo "checked";} ?>
+        <dd><input type="radio" id = "Home" name="P_Type" value="H" <?php if($POLICY_ARRAY['P_Type'] == "H") { echo "checked";} ?>
         /><label for="Home">Home</label></dd>
       </dl>
       
       <dl>
         <dt>Customer ID</dt>
-        <dd><input type="number" name="Cid" min="100000" max="999999" value="<?php echo h($Cid); ?>" /></dd>
+        <dd><input type="number" name="Policy_no" min="100000" max="999999" value="<?php echo h($POLICY_ARRAY['Cid']); ?>" /></dd>
       </dl>
       <dl>
         <dt>Start Date</dt>
-        <dd><input type="date" name="Start_Date" value="<?php echo h($Start_Date); ?>" /></dd>
+        <dd><input type="date" name="Start_Date" value="<?php echo h($POLICY_ARRAY['Start_Date']); ?>" /></dd>
       </dl>
 
       <dl>
         <dt>End Date</dt>
-        <dd><input type="date" name="End_Date" value="<?php echo h($End_Date); ?>" /></dd>
+        <dd><input type="date" name="End_Date" value="<?php echo h($POLICY_ARRAY['End_Date']); ?>" /></dd>
       </dl>
       
       <dl>
         <dt>Premium</dt>
-        <dd><input type="number" name="Premium" value="<?php echo h($Premium); ?>" /></dd>
+        <dd><input type="number" name="Premium" value="<?php echo h($POLICY_ARRAY['Premium']); ?>" /></dd>
       </dl>
 
       <dl>
         <dt>Status</dt>
-        <dd><input type="radio" id = "Current" name="Status" value="C" <?php if($Status == "C") { echo "checked";} ?>
+        <dd><input type="radio" id = "Current" name="Status" value="C" <?php if($POLICY_ARRAY['Status'] == "C") { echo "checked";} ?>
         /><label for="Auto">Current</label></dd>
-        <dd><input type="radio" id = "Expired" name="Status" value="P" <?php if($Status == "P") { echo "checked";} ?>
+        <dd><input type="radio" id = "Expired" name="Status" value="P" <?php if($POLICY_ARRAY['Status'] == "P") { echo "checked";} ?>
         /><label for="Home">Expired</label></dd>        
       </dl>
       <div id="operations">

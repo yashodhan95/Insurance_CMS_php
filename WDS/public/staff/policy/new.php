@@ -10,19 +10,6 @@ $End_Date = '';
 $Premium = '';
 $Status = '';
 
-if(is_post_request()) {
-
-  // Handle form values sent by new.php
-
-  $Policy_no = $_POST['Policy_no'] ?? '';
-  $P_Type = $_POST['P_Type'] ?? '';
-  $Cid = $_POST['Cid'] ?? '';
-  $Start_Date = $_POST['Start_Date'] ?? '';
-  $End_Date = $_POST['End_Date'] ?? '';
-  $Premium = $_POST['Premium'] ?? '';
-  $Status = $_POST['Status'] ?? '';
-
-}
 
 ?>
 <?php $page_title = 'Create Policy'; ?>
