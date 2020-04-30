@@ -20,19 +20,19 @@ if(is_post_request()) {
 
 //UPDATE `vehicle_driver` SET `Rating` = '9' WHERE `vehicle_driver`.`Vin` = 'C167731467' AND `vehicle_driver`.`License_no` = 'A465488148';
   $sql = "UPDATE vehicle_driver SET ";
-  #$sql .= "Vin='" . $vehicle_driver['Vin'] . "',";
-  #$sql .= "License_no='" . $vehicle_driver['License_no'] . "',";
+  $sql .= "Vin='" . $vehicle_driver['Vin'] . "', ";
+  $sql .= "License_no='" . $vehicle_driver['License_no'] . "', ";
   $sql .= "Rating='" . $vehicle_driver['Rating'] . "' ";
   $sql .= "WHERE Vin='" . $vehicle_driver['Vin'] . "' ";
-  $sql .= "AND License_no='" . $vehicle_driver['License_no'];
-  #$sql .= "Limit 1;";
+  $sql .= "AND License_no='" . $vehicle_driver['License_no'] . "' ";
+  $sql .= "Limit 1;";
 
   $update = mysqli_query($db, $sql);
   //for insert statement the vehicle_driver is True or False
 
   if($update){
     $new_id = mysqli_insert_id($db);
-    redirect_to(url_for('/staff/driver/show.php?id=' . $id . '&id2=' . h(u($id2))));
+    redirect_to(url_for('/staff/vehicle_driver/show.php?id=' . $id . '&id2=' . h(u($id2))));
 
   } else {
     //insert failed
