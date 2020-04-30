@@ -49,7 +49,7 @@
           <td><?php echo $Customer['C_Type']; ?></td>    	    
           <td><a class="action" href="<?php echo url_for('/staff/customer/show.php?id=' . h(u($Customer['Cid']))); ?>">View</a></td>
           <td><a class="action" href="<?php echo url_for('/staff/customer/edit.php?id=' . h(u($Customer['Cid']))); ?>">Edit</a></td>
-          <td><a class="action" href="">Delete</a></td>
+          <td><a class="action" href="<?php echo url_for('/staff/customer/delete.php?id=' . h(u($Customer['Cid']))); ?>">Delete</a></td>
     	  </tr>
       <?php } ?>
   	</table>

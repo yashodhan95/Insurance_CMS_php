@@ -40,7 +40,7 @@ $Vehicle_set = find_all("vehicle");
           <td><?php echo $Vehicle['Policy_no']; ?></td>
           <td><a class="action" href="<?php echo url_for('/staff/vehicle/show.php?id=' . h(u($Vehicle['Vin']))); ?>">View</a></td>
           <td><a class="action" href="<?php echo url_for('/staff/vehicle/edit.php?id=' . h(u($Vehicle['Vin']))); ?>">Edit</a></td>
-          <td><a class="action" href="">Delete</a></td>
+          <td><a class="action" href="<?php echo url_for('/staff/vehicle/delete.php?id=' . h(u($Vehicle['Vin']))); ?>">Delete</a></td>
     	  </tr>
       <?php } ?>
   	</table>

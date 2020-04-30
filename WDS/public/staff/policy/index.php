@@ -44,7 +44,7 @@ $Policy_set = find_all("policy");
           <td><?php echo $Policy['Status']; ?></td>
           <td><a class="action" href="<?php echo url_for('/staff/policy/show.php?id=' . h(u($Policy['Policy_no']))); ?>">View</a></td>
           <td><a class="action" href="<?php echo url_for('/staff/policy/edit.php?id=' . h(u($Policy['Policy_no']))); ?>">Edit</a></td>
-          <td><a class="action" href="">Delete</a></td>
+          <td><a class="action" href="<?php echo url_for('/staff/policy/delete.php?id=' . h(u($Policy['Policy_no']))); ?>">Delete</a></td>
     	  </tr>
       <?php } ?>
   	</table>

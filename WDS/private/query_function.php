@@ -36,5 +36,41 @@
 		return $parcel;
 	}
 
+	function delete_record($table_name,$key_name,$id){
+		global $db;
+
+	$sql = "DELETE FROM $table_name ";
+	$sql .="WHERE $key_name='" . "$id" . "' ";
+	$sql .="LIMIT 1;";
+
+	$result = mysqli_query($db, $sql);
+
+	if($result){
+		return true;
+	} else{
+		echo mysqli_error($db);
+		db_disconnect($db);
+		exit;
+	}
+
+	}
+
+	function delete_vehicle_driver_record($id,$id2){
+		global $db;
+		$sql = "DELETE FROM vehicle_driver ";
+		$sql .="WHERE Vin='" . $id . "' AND License_no='" . $id2 . "';";
+
+	$result = mysqli_query($db, $sql);
+
+	if($result){
+		return true;
+	} else{
+		echo mysqli_error($db);
+		db_disconnect($db);
+		exit;
+	}
+
+
+	}
 
 ?>

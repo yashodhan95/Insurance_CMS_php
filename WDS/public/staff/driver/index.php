@@ -43,7 +43,7 @@
           <td><?php echo $Driver['D_DOB']; ?></td>
           <td><a class="action" href="<?php echo url_for('/staff/driver/show.php?id=' . h(u($Driver['License_no']))); ?>">View</a></td>
           <td><a class="action" href="<?php echo url_for('/staff/driver/edit.php?id=' . h(u($Driver['License_no']))); ?>">Edit</a></td>
-          <td><a class="action" href="">Delete</a></td>
+          <td><a class="action" href="<?php echo url_for('/staff/driver/delete.php?id=' . h(u($Driver['License_no']))); ?>">Delete</a></td>
     	  </tr>
       <?php } ?>
   	</table>

@@ -40,7 +40,7 @@ $Payment_set = find_all("payment");
           <td><?php echo $Payment['Invoice_id']; ?></td>
           <td><a class="action" href="<?php echo url_for('/staff/payment/show.php?id=' . h(u($Payment['Instal_ID']))); ?>">View</a></td>
           <td><a class="action" href="<?php echo url_for('/staff/payment/edit.php?id=' . h(u($Payment['Instal_ID']))); ?>">Edit</a></td>
-          <td><a class="action" href="">Delete</a></td>
+          <td><a class="action" href="<?php echo url_for('/staff/payment/delete.php?id=' . h(u($Payment['Instal_ID']))); ?>">Delete</a></td>
     	  </tr>
       <?php } ?>
   	</table>

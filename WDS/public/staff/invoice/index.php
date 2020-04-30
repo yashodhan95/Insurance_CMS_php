@@ -44,7 +44,7 @@ $Invoice_set = find_all("invoice");
           <td><?php echo $Invoice['Due_Date']; ?></td>
           <td><a class="action" href="<?php echo url_for('/staff/invoice/show.php?id=' . h(u($Invoice['Invoice_id']))); ?>">View</a></td>
           <td><a class="action" href="<?php echo url_for('/staff/invoice/edit.php?id=' . h(u($Invoice['Invoice_id']))); ?>">Edit</a></td>
-          <td><a class="action" href="">Delete</a></td>
+          <td><a class="action" href="<?php echo url_for('/staff/invoice/delete.php?id=' . h(u($Invoice['Invoice_id']))); ?>">Delete</a></td>
     	  </tr>
       <?php } ?>
   	</table>

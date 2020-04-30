@@ -50,7 +50,7 @@ $Home_set = find_all("home");
           <td><?php echo $Home['Policy_no']; ?></td>
           <td><a class="action" href="<?php echo url_for('/staff/home/show.php?id=' . h(u($Home['Home_id']))); ?>">View</a></td>
           <td><a class="action" href="<?php echo url_for('/staff/home/edit.php?id=' . h(u($Home['Home_id']))); ?>">Edit</a></td>
-          <td><a class="action" href="">Delete</a></td>
+          <td><a class="action" href="<?php echo url_for('/staff/home/delete.php?id=' . h(u($Home['Home_id']))); ?>">Delete</a></td>
     	  </tr>
       <?php } ?>
   	</table>
