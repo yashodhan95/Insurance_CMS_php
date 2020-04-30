@@ -19,11 +19,11 @@ if(is_post_request()) {
   $driver['D_DOB'] = $_POST['D_DOB'] ?? '';
 
   $sql = "UPDATE drivers SET ";
-  $sql .= "License_no='" . $driver['License_no'] . "',";
-  $sql .= "D_Fname='" . $driver['D_Fname'] . "',";
-  $sql .= "D_Lname='" . $driver['D_Lname'] . "',";
-  $sql .= "D_DOB='" . $driver['D_DOB'] . "'";
-  $sql .= "WHERE License_no='" . $driver['License_no'] . "' ";
+  $sql .= "License_no='" . db_escape($db,$driver['License_no']) . "',";
+  $sql .= "D_Fname='" . db_escape($db,$driver['D_Fname']) . "',";
+  $sql .= "D_Lname='" . db_escape($db,$driver['D_Lname']) . "',";
+  $sql .= "D_DOB='" . db_escape($db,$driver['D_DOB']) . "'";
+  $sql .= "WHERE License_no='" . db_escape($db,$driver['License_no']) . "' ";
   $sql .= "Limit 1;";
 
 

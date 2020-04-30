@@ -15,11 +15,11 @@ if(is_post_request()) {
   $result['Invoice_id'] = $_POST['Invoice_id'] ?? '';
 
   $sql = "UPDATE payment SET ";
-  $sql .= "Instal_ID='" . $result['Instal_ID'] . "',";
-  $sql .= "Instal_amt='" . $result['Instal_amt'] . "',";
-  $sql .= "Pay_date='" . $result['Pay_date'] . "',";
-  $sql .= "Pay_method='" . $result['Pay_method'] . "' ";
-  $sql .= "WHERE Instal_ID='" . $result['Instal_ID'] . "' ";
+  $sql .= "Instal_ID='" . db_escape($db,$result['Instal_ID']) . "',";
+  $sql .= "Instal_amt='" . db_escape($db,$result['Instal_amt']) . "',";
+  $sql .= "Pay_date='" . db_escape($db,$result['Pay_date']) . "',";
+  $sql .= "Pay_method='" . $result['Pay_method']) . "' ";
+  $sql .= "WHERE Instal_ID='" . db_escape($db,$result['Instal_ID']) . "' ";
   $sql .= "Limit 1;";
 
 

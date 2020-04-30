@@ -2,6 +2,47 @@
 
 require_once('../../../private/initialize.php');
 
+if(is_post_request()){
+
+  $License_no= $_POST['License_no'] ?? '';
+  $D_Fname = $_POST['D_Fname'] ?? '';
+  $D_Lname = $_POST['D_Lname'] ?? '';
+  $D_DOB= $_POST['D_DOB'] ?? '';
+  
+
+
+  $sql = "Insert into drivers ";
+  $sql .= "(License_No, D_Fname, D_Lname, D_DOB) ";
+  $sql .= "values (";
+  $sql .= "'" . db_escape($db,$License_no) . "',";
+  $sql .= "'" . db_escape($db,$D_Fname) . "',";
+  $sql .= "'" . db_escape($db,$D_Lname) . "',";
+  $sql .= "'" . db_escape($db,$D_DOB) . "'";
+  $sql .= ")";
+  
+  $result = mysqli_query($db, $sql);
+
+  if($result){
+    $new_id = mysqli_insert_id($db);
+    redirect_to(url_for('/staff/driver/show.php?id=' . $License_no));
+
+  } else {
+    //insert failed
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
+  }
+
+}
+
+
+
+
+else{
+  
+  }
+
+
 $License_no = '';
 $D_Fname = '';
 $D_Lname = '';
@@ -19,7 +60,7 @@ $D_DOB = '';
   <div class="driver new">
     <h1>Create Driver</h1>
 
-    <form action="<?php echo url_for('/staff/driver/create.php'); ?>" method="post">
+    <form action="<?php echo url_for('/staff/driver/new.php'); ?>" method="post">
       <dl>
         <dt>License no</dt>
         <dd><input type="text" name="License_no" maxlength="10" style="text-transform:uppercase"

@@ -2,6 +2,48 @@
 
 require_once('../../../private/initialize.php');
 
+if(is_post_request()){
+
+  
+  $Policy_no = $_POST['Policy_no'] ?? '';
+  $P_Type = $_POST['P_Type'] ?? '';
+  $Cid = $_POST['Cid'] ?? '';
+  $Start_Date = $_POST['Start_Date'] ?? '';
+  $End_Date = $_POST['End_Date'] ?? '';
+  $Premium = $_POST['Premium'] ?? '';
+  $Status = $_POST['Status'] ?? '';
+
+
+  $sql = "Insert into policy ";
+  $sql .= "(Policy_no, P_Type, Cid, Start_Date, End_Date, Premium, Status) ";
+  $sql .= "values (";
+  $sql .= "'" . db_escape($db,$Policy_no) . "',";
+  $sql .= "'" . db_escape($db,$P_Type) . "',";
+  $sql .= "'" . db_escape($db,$Cid) . "',";
+  $sql .= "'" . db_escape($db,$Start_Date) . "',";
+  $sql .= "'" . db_escape($db,$End_Date) . "',";
+  $sql .= "'" . db_escape($db,$Premium) . "',";
+  $sql .= "'" . db_escape($db,$Status) . "'";
+    $sql .= ")";
+
+  $result = mysqli_query($db, $sql);
+  //for insert statement the result is True or False
+
+  if($result){
+    $new_id = mysqli_insert_id($db);
+    redirect_to(url_for('/staff/policy/show.php?id=' . $Policy_no));
+
+  } else {
+    //insert failed
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
+  }
+}
+else{
+ 
+  }
+
 $Policy_no = '';
 $P_Type = '';
 $Cid = '';
@@ -22,7 +64,7 @@ $Status = '';
   <div class="policy new">
     <h1>Create Policy</h1>
 
-    <form action="<?php echo url_for('/staff/policy/create.php'); ?>" method="post">
+    <form action="<?php echo url_for('/staff/policy/new.php'); ?>" method="post">
       <dl>
         <dt>Policy Number</dt>
         <dd><input type="number" name="Policy_no" min="100000000000" max="999999999999"

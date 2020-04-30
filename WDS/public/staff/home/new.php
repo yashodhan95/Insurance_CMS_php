@@ -2,6 +2,52 @@
 
 require_once('../../../private/initialize.php');
 
+if(is_post_request()){
+
+  $Home_id = $_POST['Home_id'] ?? '';
+  $Purchase_Date = $_POST['Purchase_Date'] ?? '';
+  $Home_value = $_POST['Home_value'] ?? '';
+  $Area = $_POST['Area'] ?? '';
+  $Home_type = $_POST['Home_type'] ?? '';
+  $Auto_fire = $_POST['Auto_fire'] ?? '';
+  $Home_sec = $_POST['Home_sec'] ?? '';
+  $Pool = $_POST['Pool'] ?? '';
+  $Basement = $_POST['Basement'] ?? '';
+  $Policy_no = $_POST['Policy_no'] ?? '';
+  
+  $sql = "Insert into home ";
+  $sql .= "(Home_id, Purchase_Date, Home_value, Area, Home_type, Auto_fire, Home_sec, Pool, Basement, Policy_no) ";
+  $sql .= "values (";
+  $sql .= "'" . db_escape($db,$Home_id) . "',";
+  $sql .= "'" . db_escape($db,$Purchase_Date) . "',";
+  $sql .= "'" . db_escape($db,$Home_value) . "',";
+  $sql .= "'" . db_escape($db,$Area) . "',";
+  $sql .= "'" . db_escape($db,$Home_type) . "',";
+  $sql .= "'" . db_escape($db,$Auto_fire) . "',";
+  $sql .= "'" . db_escape($db,$Home_sec) . "',";
+  $sql .= "'" . db_escape($db,$Pool) . "',";
+  $sql .= "'" . db_escape($db,$Basement) . "',";
+  $sql .= "'" . db_escape($db,$Policy_no) . "'";
+  $sql .= ")";
+
+  $result = mysqli_query($db, $sql);
+  //for insert statement the result is True or False
+
+  if($result){
+    $new_id = mysqli_insert_id($db);
+    redirect_to(url_for('/staff/home/show.php?id=' . $Home_id));
+
+  } else {
+    //insert failed
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
+  }
+}
+else{
+  }
+
+
 $Home_id = '';
 $Purchase_Date = '';
 $Home_value = '';
@@ -25,7 +71,7 @@ $Policy_no = '';
   <div class="home new">
     <h1>Create Home</h1>
 
-    <form action="<?php echo url_for('/staff/home/create.php'); ?>" method="post">
+    <form action="<?php echo url_for('/staff/home/new.php'); ?>" method="post">
       
       <dl>
         <dt>Home ID</dt>

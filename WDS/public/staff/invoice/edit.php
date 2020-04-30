@@ -19,11 +19,11 @@ if(is_post_request()) {
   $result['Due_Date'] = $_POST['Due_Date'] ?? '';
 
   $sql = "UPDATE invoice SET ";
-  $sql .= "Invoice_id='" . $result['Invoice_id'] . "',";
-  $sql .= "Invoice_amt='" . $result['Invoice_amt'] . "',";
-  $sql .= "Policy_no='" . $result['Policy_no'] . "',";
-  $sql .= "Due_Date='" . $result['Due_Date'] . "' ";
-  $sql .= "WHERE Invoice_id='" . $result['Invoice_id'] . "' ";
+  $sql .= "Invoice_id='" . db_escape($db,$result['Invoice_id']) . "',";
+  $sql .= "Invoice_amt='" . db_escape($db,$result['Invoice_amt']) . "',";
+  $sql .= "Policy_no='" . db_escape($db,$result['Policy_no']) . "',";
+  $sql .= "Due_Date='" . db_escape($db,$result['Due_Date']) . "' ";
+  $sql .= "WHERE Invoice_id='" . db_escape($db,$result['Invoice_id']) . "' ";
   $sql .= "Limit 1;";
 
 

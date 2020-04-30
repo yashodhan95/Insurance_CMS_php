@@ -27,18 +27,18 @@ if(is_post_request()) {
   $customer['C_Type'] = $_POST['C_Type'] ?? '';
 
   $sql = "UPDATE customer SET ";
-  $sql .= "Cid='" . $customer['Cid'] . "',";
-  $sql .= "Fname='" . $customer['Fname'] . "',";
-  $sql .= "Lname='" . $customer['Lname'] . "',";
-  $sql .= "St='" . $customer['St'] . "',";
-  $sql .= "City='" . $customer['City'] . "',";
-  $sql .= "State='" . $customer['State'] . "',";
-  $sql .= "Zipcode='" . $customer['Zipcode'] . "',";
-  $sql .= "Gender='" . $customer['Gender'] . "',";
-  $sql .= "DOB='" . $customer['DOB'] . "',";
-  $sql .= "M_Status='" . $customer['M_Status'] . "',";
-  $sql .= "C_Type='" . $customer['C_Type'] . "' ";
-  $sql .= "WHERE Cid='" . $customer['Cid'] . "' ";
+  $sql .= "Cid='" . db_escape($db,$customer['Cid']) . "',";
+  $sql .= "Fname='" . db_escape($db,$customer['Fname']) . "',";
+  $sql .= "Lname='" . db_escape($db,$customer['Lname']) . "',";
+  $sql .= "St='" . db_escape($db,$customer['St']) . "',";
+  $sql .= "City='" . db_escape($db,$customer['City']) . "',";
+  $sql .= "State='" . db_escape($db,$customer['State']) . "',";
+  $sql .= "Zipcode='" . db_escape($db,$customer['Zipcode']) . "',";
+  $sql .= "Gender='" . db_escape($db,$customer['Gender']) . "',";
+  $sql .= "DOB='" . db_escape($db,$customer['DOB']) . "',";
+  $sql .= "M_Status='" . db_escape($db,$customer['M_Status']) . "',";
+  $sql .= "C_Type='" . db_escape($db,$customer['C_Type']) . "' ";
+  $sql .= "WHERE Cid='" . db_escape($db,$customer['Cid']) . "' ";
   $sql .= "Limit 1;";
 
 

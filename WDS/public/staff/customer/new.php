@@ -2,6 +2,56 @@
 
 require_once('../../../private/initialize.php');
 
+if(is_post_request()){
+
+  $Cid = $_POST['Cid'] ?? '';
+  $Fname = $_POST['Fname'] ?? '';
+  $Lname = $_POST['Lname'] ?? '';
+  $St = $_POST['St'] ?? '';
+  $City = $_POST['City'] ?? '';
+  $State = $_POST['State'] ?? '';
+  $Zipcode = $_POST['Zipcode'] ?? '';
+  $Gender = $_POST['Gender'] ?? '';
+  $DOB = $_POST['DOB'] ?? '';
+  $M_Status = $_POST['M_Status'] ?? '';
+  $C_Type = $_POST['C_Type'] ?? '';
+  //$Visible = $_POST['visible'] ?? '';
+
+
+  $sql = "Insert into customer ";
+  $sql .= "(Cid, Fname, Lname, St, City, State, Zipcode, Gender, DOB, M_Status, C_Type) ";
+  $sql .= "values (";
+  $sql .= "'" . db_escape($db,$Cid) . "',";
+  $sql .= "'" . db_escape($db,$Fname) . "',";
+  $sql .= "'" . db_escape($db,$Lname) . "',";
+  $sql .= "'" . db_escape($db,$St) . "',";
+  $sql .= "'" . db_escape($db,$City) . "',";
+  $sql .= "'" . db_escape($db,$State) . "',";
+  $sql .= "'" . db_escape($db,$Zipcode) . "',";
+  $sql .= "'" . db_escape($db,$Gender) . "',";
+  $sql .= "'" . db_escape($db,$DOB) . "',";
+  $sql .= "'" . db_escape($db,$M_Status) . "',";
+  $sql .= "'" . db_escape($db,$C_Type) . "'";
+  $sql .= ")";
+
+  $result = mysqli_query($db, $sql);
+  //for insert statement the result is True or False
+
+  if($result){
+    $new_id = mysqli_insert_id($db);
+    redirect_to(url_for('/staff/customer/show.php?id=' . $Cid));
+
+  } else {
+    //insert failed
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
+  }
+}
+else{
+
+  }
+
 
 $Cid = '';
 $Fname = '';
@@ -27,7 +77,7 @@ $C_Type = '';
   <div class="customer new">
     <h1>Create Customer</h1>
 
-    <form action="<?php echo url_for('/staff/customer/create.php'); ?>" method="post">
+    <form action="<?php echo url_for('/staff/customer/new.php'); ?>" method="post">
       <dl>
         <dt>Cid</dt>
         <dd><input type="number" name="Cid" min ="1" max = "999999" value="<?php echo h($Cid); ?>" /></dd>

@@ -25,17 +25,17 @@ if(is_post_request()) {
   $home['Policy_no'] = $_POST['Policy_no'] ?? '';
 
   $sql = "UPDATE home SET ";
-  $sql .= "Home_id='" . $home['Home_id'] . "',";
-  $sql .= "Purchase_Date='" . $home['Purchase_Date'] . "',";
-  $sql .= "Home_value='" . $home['Home_value'] . "',";
-  $sql .= "Area='" . $home['Area'] . "',";
-  $sql .= "Home_type='" . $home['Home_type'] . "',";
-  $sql .= "Auto_fire='" . $home['Auto_fire'] . "',";
-  $sql .= "Home_sec='" . $home['Home_sec'] . "',";
-  $sql .= "Pool='" . $home['Pool'] . "',";
-  $sql .= "Basement='" . $home['Basement'] . "',";
-  $sql .= "Policy_no='" . $home['Policy_no'] . "'";
-  $sql .= "WHERE Home_id='" . $home['Home_id'] . "' ";
+  $sql .= "Home_id='" . db_escape($db,$home['Home_id']) . "',";
+  $sql .= "Purchase_Date='" . db_escape($db,$home['Purchase_Date']) . "',";
+  $sql .= "Home_value='" . db_escape($db,$home['Home_value']) . "',";
+  $sql .= "Area='" . db_escape($db,$home['Area']) . "',";
+  $sql .= "Home_type='" . db_escape($db,$home['Home_type']) . "',";
+  $sql .= "Auto_fire='" . db_escape($db,$home['Auto_fire']) . "',";
+  $sql .= "Home_sec='" . db_escape($db,$home['Home_sec']) . "',";
+  $sql .= "Pool='" . db_escape($db,$home['Pool']) . "',";
+  $sql .= "Basement='" . db_escape($db,$home['Basement']) . "',";
+  $sql .= "Policy_no='" . db_escape($db,$home['Policy_no']) . "'";
+  $sql .= "WHERE Home_id='" . db_escape($db,$home['Home_id']) . "' ";
   $sql .= "Limit 1;";
 
 

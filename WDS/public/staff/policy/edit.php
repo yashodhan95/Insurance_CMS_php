@@ -22,14 +22,14 @@ if(is_post_request()) {
   $policy['Status'] = $_POST['Status'] ?? '';
 
   $sql = "UPDATE policy SET ";
-  $sql .= "Policy_no='" . $policy['Policy_no'] . "', ";
-  $sql .= "P_Type='" . $policy['P_Type'] . "', ";
-  $sql .= "Cid='" . $policy['Cid'] . "', ";
-  $sql .= "Start_Date='" . $policy['Start_Date'] . "', ";
-  $sql .= "End_Date='" . $policy['End_Date'] . "', ";
-  $sql .= "Premium='" . $policy['Premium'] . "', ";
-  $sql .= "Status = '" . $policy['Status'] . "' ";
-  $sql .= "WHERE Policy_no='" . $policy['Policy_no'] . "' ";
+  $sql .= "Policy_no='" . db_escape($db,$policy['Policy_no']) . "', ";
+  $sql .= "P_Type='" . db_escape($db,$policy['P_Type']) . "', ";
+  $sql .= "Cid='" . db_escape($db,$policy['Cid']) . "', ";
+  $sql .= "Start_Date='" . db_escape($db,$policy['Start_Date']) . "', ";
+  $sql .= "End_Date='" . db_escape($db,$policy['End_Date']) . "', ";
+  $sql .= "Premium='" . db_escape($db,$policy['Premium']) . "', ";
+  $sql .= "Status = '" . db_escape($db,$policy['Status']) . "' ";
+  $sql .= "WHERE Policy_no='" . db_escape($db,$policy['Policy_no']) . "' ";
   $sql .= "Limit 1";
 
   $result = mysqli_query($db, $sql);

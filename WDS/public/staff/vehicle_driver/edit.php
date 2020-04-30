@@ -20,11 +20,11 @@ if(is_post_request()) {
 
 //UPDATE `vehicle_driver` SET `Rating` = '9' WHERE `vehicle_driver`.`Vin` = 'C167731467' AND `vehicle_driver`.`License_no` = 'A465488148';
   $sql = "UPDATE vehicle_driver SET ";
-  $sql .= "Vin='" . $vehicle_driver['Vin'] . "', ";
-  $sql .= "License_no='" . $vehicle_driver['License_no'] . "', ";
-  $sql .= "Rating='" . $vehicle_driver['Rating'] . "' ";
-  $sql .= "WHERE Vin='" . $vehicle_driver['Vin'] . "' ";
-  $sql .= "AND License_no='" . $vehicle_driver['License_no'] . "' ";
+  $sql .= "Vin='" . db_escape($db,$vehicle_driver['Vin']) . "', ";
+  $sql .= "License_no='" . db_escape($db,$vehicle_driver['License_no']) . "', ";
+  $sql .= "Rating='" . db_escape($db,$vehicle_driver['Rating']) . "' ";
+  $sql .= "WHERE Vin='" . db_escape($db,$vehicle_driver['Vin']) . "' ";
+  $sql .= "AND License_no='" . db_escape($db,$vehicle_driver['License_no']) . "' ";
   $sql .= "Limit 1;";
 
   $update = mysqli_query($db, $sql);

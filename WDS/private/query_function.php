@@ -11,7 +11,7 @@
 	function find_record($table_name,$key_name,$id){
 		global $db;
 		$sql = "SELECT * FROM $table_name ";
-  		$sql .="WHERE $key_name='" . "$id" . "';";
+  		$sql .="WHERE $key_name='" . db_escape($db,$id) . "';";
   		$result = mysqli_query($db, $sql);
   		confirm_result_set($result);
 
@@ -25,7 +25,7 @@
 	function find_vehicle_driver_record($id,$id2){
 		global $db;  
  		$sql = "SELECT * FROM vehicle_driver ";
-  		$sql .="WHERE Vin='" . $id . "' AND License_no='" . $id2 . "';";
+  		$sql .="WHERE Vin='" . db_escape($db,$id) . "' AND License_no='" . db_escape($db,$id2) . "';";
   
   		$result = mysqli_query($db, $sql);
   		confirm_result_set($result);
@@ -40,7 +40,7 @@
 		global $db;
 
 	$sql = "DELETE FROM $table_name ";
-	$sql .="WHERE $key_name='" . "$id" . "' ";
+	$sql .="WHERE $key_name='" . db_escape($db,$id) . "' ";
 	$sql .="LIMIT 1;";
 
 	$result = mysqli_query($db, $sql);
@@ -58,7 +58,7 @@
 	function delete_vehicle_driver_record($id,$id2){
 		global $db;
 		$sql = "DELETE FROM vehicle_driver ";
-		$sql .="WHERE Vin='" . $id . "' AND License_no='" . $id2 . "';";
+		$sql .="WHERE Vin='" . db_escape($db,$id) . "' AND License_no='" . db_escape($db,$id2) . "';";
 
 	$result = mysqli_query($db, $sql);
 
