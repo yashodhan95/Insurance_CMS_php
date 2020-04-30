@@ -6,33 +6,51 @@ if(!isset($_GET['id'])) {
   redirect_to(url_for('/staff/vehicle/index.php'));
 }
 
-$id =$_GET['id'];
-$Vin = '';
-$V_make = '';
-$V_model = '';
-$V_year = '';
-$V_status = '';
-$Policy_no = '';
+$id = $_GET['id'];
+
 
 if(is_post_request()) {
 
   // Handle form values sent by new.php
+  $result = [];
+  $result['Vin'] = $_POST['Vin'] ?? '';
+  $result['V_make'] = $_POST['V_make'] ?? '';
+  $result['V_model'] = $_POST['V_model'] ?? '';
+  $result['V_year'] = $_POST['V_year'] ?? '';
+  $result['V_status'] = $_POST['V_status'] ?? '';
+  $result['Policy_no'] = $_POST['Policy_no'] ?? '';
 
-  $Vin = $_POST['Cid'] ?? '';
-  $V_make = $_POST['V_make'] ?? '';
-  $V_model = $_POST['V_model'] ?? '';
-  $V_year = $_POST['V_year'] ?? '';
-  $V_status = $_POST['V_status'] ?? '';
-  $Policy_no = $_POST['Policy_no'] ?? '';
+  $sql = "UPDATE vehicle SET ";
+  $sql .= "Vin='" . $result['Vin'] . "',";
+  $sql .= "V_make='" . $result['V_make'] . "',";
+  $sql .= "V_model='" . $result['V_model'] . "',";
+  $sql .= "V_year='" . $result['V_year'] . "',";
+  $sql .= "V_status='" . $result['V_status'] . "',";
+  $sql .= "Policy_no='" . $result['Policy_no'] . "' ";
+  $sql .= "WHERE Vin='" . $result['Vin'] . "' ";
+  $sql .= "Limit 1;";
 
-  echo "Form parameters<br />";
-  echo "Vin: " . $Cid . "<br />";
-  echo "V_make: " . $V_make . "<br />";
-  echo "V_model: " . $V_model . "<br />";
-  echo "V_year: " . $V_year . "<br />";
-  echo "V_status: " . $V_status . "<br />";
-  echo "Policy_no: " . $Policy_no . "<br />";
+
+  $result = mysqli_query($db, $sql);
+  //for insert statement the result is True or False
+
+  if($result){
+    $new_id = mysqli_insert_id($db);
+    redirect_to(url_for('/staff/vehicle/show.php?id=' . $id));
+
+  } else {
+    //insert failed
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
+  }
+
 }
+
+else{
+  $result = find_record("vehicle", "Vin" ,$id);
+}
+
 
 ?>
 <?php $page_title = 'Edit Vehicle'; ?>
@@ -49,37 +67,37 @@ if(is_post_request()) {
       <dl>
         <dt>VIN</dt>
         <dd><input type="text" name="Vin" maxlength="10" style="text-transform:uppercase"
-         value="<?php echo h($Vin); ?>" /></dd>
+         value="<?php echo h($result['Vin']); ?>" /></dd>
       </dl>
       
       <dl>
         <dt>Vehicle Make</dt>
-        <dd><input type="text" name="V_make" value="<?php echo $V_make; ?>" /></dd>
+        <dd><input type="text" name="V_make" value="<?php echo h($result['V_make']); ?>" /></dd>
       </dl>
       
       <dl>
         <dt>Vehicle Model</dt>
-        <dd><input type="text" name="V_model" value="<?php echo h($V_model); ?>" /></dd>
+        <dd><input type="text" name="V_model" value="<?php echo h($result['V_model']); ?>" /></dd>
       </dl>
       <dl>
         <dt>Vehicle Year</dt>
-        <dd><input type="text" name="V_year" value="<?php echo h($V_year); ?>" /></dd>
+        <dd><input type="text" name="V_year" value="<?php echo h($result['V_year']); ?>" /></dd>
       </dl>
 
       <dl>
         <dt>Vehicle Status</dt>
-          <dd><input type="radio" id = "L" name="V_status" value="L" <?php if($V_status == "L") { echo "checked";} ?>
+          <dd><input type="radio" id = "L" name="V_status" value="L" <?php if($result['V_status'] == "L") { echo "checked";} ?>
           />Leased</dd>
-          <dd><input type="radio" id = "F" name="V_status" value="F" <?php if($V_status == "F") { echo "checked";} ?>
+          <dd><input type="radio" id = "F" name="V_status" value="F" <?php if($result['V_status'] == "F") { echo "checked";} ?>
           />Financed</dd>
-          <dd><input type="radio" id = "O" name="V_status" value="O" <?php if($V_status == "O") { echo "checked";} ?>
+          <dd><input type="radio" id = "O" name="V_status" value="O" <?php if($result['V_status'] == "O") { echo "checked";} ?>
           />Owned</dd>      
       </dl>
       
       <dl>
         <dt>Policy Number</dt>
         <dd><input type="number" name="Policy_no" min="100000000000" max="999999999999"
-        value="<?php echo h($Policy_no); ?>" /></dd>
+        value="<?php echo h($result['Policy_no']); ?>" /></dd>
       </dl>
 
       <div id="operations">

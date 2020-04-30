@@ -7,26 +7,44 @@ if(!isset($_GET['id'])) {
 }
 
 $id =$_GET['id'];
-$Invoice_id = '';
-$Invoice_amt = '';
-$Policy_no = '';
-$Due_Date = '';
+
 
 if(is_post_request()) {
 
   // Handle form values sent by new.php
+  $result=[]; 
+  $result['Invoice_id'] = $_POST['Invoice_id'] ?? '';
+  $result['Invoice_amt'] = $_POST['Invoice_amt'] ?? '';
+  $result['Policy_no'] = $_POST['Policy_no'] ?? '';
+  $result['Due_Date'] = $_POST['Due_Date'] ?? '';
 
-  
-  $Invoice_id = $_POST['Invoice_id'] ?? '';
-  $Invoice_amt = $_POST['Invoice_amt'] ?? '';
-  $Policy_no = $_POST['Policy_no'] ?? '';
-  $Due_Date = $_POST['Due_Date'] ?? '';
+  $sql = "UPDATE invoice SET ";
+  $sql .= "Invoice_id='" . $result['Invoice_id'] . "',";
+  $sql .= "Invoice_amt='" . $result['Invoice_amt'] . "',";
+  $sql .= "Policy_no='" . $result['Policy_no'] . "',";
+  $sql .= "Due_Date='" . $result['Due_Date'] . "' ";
+  $sql .= "WHERE Invoice_id='" . $result['Invoice_id'] . "' ";
+  $sql .= "Limit 1;";
 
-  echo "Form parameters<br />";
-  echo "Invoice_id: " . $Invoice_id . "<br />";
-  echo "Invoice_amt: " . $Invoice_amt . "<br />";
-  echo "Policy_no: " . $Policy_no . "<br />";
-  echo "Due_Date: " . $Due_Date . "<br />";
+
+  $result = mysqli_query($db, $sql);
+  //for insert statement the result is True or False
+
+  if($result){
+    $new_id = mysqli_insert_id($db);
+    redirect_to(url_for('/staff/invoice/show.php?id=' . $id));
+
+  } else {
+    //insert failed
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
+  }
+
+}
+
+else{
+  $result = find_record("invoice", "Invoice_id" ,$id);
 }
 
 ?>
@@ -43,21 +61,21 @@ if(is_post_request()) {
     <form action="<?php echo url_for('/staff/invoice/edit.php?id=' . h(u($id))); ?>" method="post">
       <dl>
         <dt>Invoice Id</dt>
-        <dd><input type="number" name="Invoice_id" min ="1000000" max = "9999999" value="<?php echo h($Invoice_id); ?>" /></dd>
+        <dd><input type="number" name="Invoice_id" min ="1000000" max = "9999999" value="<?php echo h($result['Invoice_id']); ?>" /></dd>
       </dl>
       
       <dl>
         <dt>Invoice Amount</dt>
-        <dd><input type="number" name="Invoice_amt" value="<?php echo $Invoice_amt; ?>" /></dd>
+        <dd><input type="number" name="Invoice_amt" value="<?php echo h($result['Invoice_amt']); ?>" /></dd>
       </dl>
       
       <dl>
         <dt>Policy Number</dt>
-        <dd><input type="number" name="Policy_no" min="100000000000" max="999999999999" value="<?php echo h($Policy_no); ?>" /></dd>
+        <dd><input type="number" name="Policy_no" min="100000000000" max="999999999999" value="<?php echo h($result['Policy_no']); ?>" /></dd>
       </dl>
       <dl>
       	<dt>Due Date</dt>
-      	<dd><input type ="date" name="Due_Date" value="<?php echo h($Due_Date); ?>"></dd>
+      	<dd><input type ="date" name="Due_Date" value="<?php echo h($result['Due_Date']); ?>"></dd>
       </dl>
       <div id="operations">
         <input type="submit" value="Edit Invoice" />

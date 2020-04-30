@@ -22,5 +22,19 @@
 	
 	}
 
+	function find_vehicle_driver_record($id,$id2){
+		global $db;  
+ 		$sql = "SELECT * FROM vehicle_driver ";
+  		$sql .="WHERE Vin='" . $id . "' AND License_no='" . $id2 . "';";
+  
+  		$result = mysqli_query($db, $sql);
+  		confirm_result_set($result);
+
+ 		$parcel = mysqli_fetch_assoc($result);
+
+		mysqli_free_result($result);  
+		return $parcel;
+	}
+
 
 ?>

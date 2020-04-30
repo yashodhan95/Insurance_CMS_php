@@ -6,7 +6,7 @@ if(!isset($_GET['id'])) {
   redirect_to(url_for('/staff/policy/index.php'));
 }
 
-$id =$_GET['id'];
+$id = $_GET['id'];
 
 #$sql = "Insert into policy ";
 #$sql .= "(Policy_no, P_Type, Cid, Start_Date, End_Date, Premium, Status) ";
