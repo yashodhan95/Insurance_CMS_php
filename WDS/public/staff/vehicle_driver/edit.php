@@ -24,7 +24,7 @@ if(is_post_request()) {
   #$sql .= "License_no='" . $vehicle_driver['License_no'] . "',";
   $sql .= "Rating='" . $vehicle_driver['Rating'] . "' ";
   $sql .= "WHERE Vin='" . $vehicle_driver['Vin'] . "' ";
-  $sql .= "AND License_no='" . $vehicle_driver['License_no'] . ", ";
+  $sql .= "AND License_no='" . $vehicle_driver['License_no'];
   #$sql .= "Limit 1;";
 
   $update = mysqli_query($db, $sql);
