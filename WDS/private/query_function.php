@@ -72,5 +72,17 @@
 
 
 	}
+	
+	function validate_customer($customer) {
+	$errors = [];
+
+    if(is_blank($customer['Cid'])) {
+      $errors[] = "Cid cannot be blank.";
+    } 
+   //  elseif(!has_length($subject['menu_name'], ['min' => 2, 'max' => 255])) {
+//       $errors[] = "Name must be between 2 and 255 characters.";
+//     }
+    return $errors;
+	}
 
 ?>
