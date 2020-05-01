@@ -21,7 +21,7 @@ if(is_post_request()){
 
   if($result){
     $new_id = mysqli_insert_id($db);
-    redirect_to(url_for('/staff/vehicle_driver/show.php?id=' . $Vin . '&id2=' . $License_no));
+    redirect_to(url_for('/staff/vehicle_driver/show.php?id=' . h(u($Vin)) . '&id2=' . h(u($License_no))));
 
   } else {
     //insert failed

@@ -18,7 +18,7 @@ if(is_post_request()) {
   $sql .= "Instal_ID='" . db_escape($db,$result['Instal_ID']) . "',";
   $sql .= "Instal_amt='" . db_escape($db,$result['Instal_amt']) . "',";
   $sql .= "Pay_date='" . db_escape($db,$result['Pay_date']) . "',";
-  $sql .= "Pay_method='" . $result['Pay_method']) . "' ";
+  $sql .= "Pay_method='" . db_escape($db,$result['Pay_method']) . "' ";
   $sql .= "WHERE Instal_ID='" . db_escape($db,$result['Instal_ID']) . "' ";
   $sql .= "Limit 1;";
 
@@ -28,7 +28,7 @@ if(is_post_request()) {
 
   if($result){
     $new_id = mysqli_insert_id($db);
-    redirect_to(url_for('/staff/payment/show.php?id=' . $id));
+    redirect_to(url_for('/staff/payment/show.php?id=' . h(u( $id))));
 
   } else {
     //insert failed
@@ -62,7 +62,7 @@ else{
       
       <dl>
         <dt>Installment Amount</dt>
-        <dd><input type="text" name="Instal_amt" value="<?php echo $result['Instal_amt']; ?>" /></dd>
+        <dd><input type="text" name="Instal_amt" value="<?php echo h($result['Instal_amt']); ?>" /></dd>
       </dl>
       
       <dl>

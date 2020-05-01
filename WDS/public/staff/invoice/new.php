@@ -25,7 +25,7 @@ if(is_post_request()){
 
   if($result){
     $new_id = mysqli_insert_id($db);
-    redirect_to(url_for('/staff/invoice/show.php?id=' . $Invoice_id));
+    redirect_to(url_for('/staff/invoice/show.php?id=' . h(u($Invoice_id))));
 
   } else {
     //insert failed
@@ -62,7 +62,7 @@ $Due_Date = '';
       
       <dl>
         <dt>Invoice Amount</dt>
-        <dd><input type="number" name="Invoice_amt" value="<?php echo $Invoice_amt; ?>" /></dd>
+        <dd><input type="number" name="Invoice_amt" value="<?php echo h($Invoice_amt); ?>" /></dd>
       </dl>
       
       <dl>

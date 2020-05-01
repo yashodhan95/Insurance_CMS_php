@@ -31,7 +31,7 @@ if(is_post_request()){
 
   if($result){
     $new_id = mysqli_insert_id($db);
-    redirect_to(url_for('/staff/policy/show.php?id=' . $Policy_no));
+    redirect_to(url_for('/staff/policy/show.php?id=' . h(u($Policy_no))));
 
   } else {
     //insert failed

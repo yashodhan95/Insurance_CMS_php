@@ -27,7 +27,7 @@ if(is_post_request()){
 
   if($result){
     $new_id = mysqli_insert_id($db);
-    redirect_to(url_for('/staff/vehicle/show.php?id=' . $Vin));
+    redirect_to(url_for('/staff/vehicle/show.php?id=' . h(u($Vin))));
 
   } else {
     //insert failed
@@ -66,7 +66,7 @@ $Policy_no = '';
       
       <dl>
         <dt>Vehicle Make</dt>
-        <dd><input type="text" name="V_make" value="<?php echo $V_make; ?>" /></dd>
+        <dd><input type="text" name="V_make" value="<?php echo h($V_make); ?>" /></dd>
       </dl>
       
       <dl>

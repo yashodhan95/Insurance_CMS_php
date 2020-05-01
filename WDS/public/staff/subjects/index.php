@@ -1,64 +1,51 @@
 <?php require_once('../../../private/initialize.php'); ?>
 
 <?php
-  $Customers = [
-    ['Cid' => '1', 'Fname' => 'Yash', 'Lname' => 'Joshi','St' => '556 83', 'City' => 'NYC', 'State' => 'NY','Zipcode' => '11209', 'Gender' => 'M',  'DOB' => '09/30/1995', 'M_Status' => 'Definitely not Single', 'C_Type' => 'A'],
-    ['Cid' => '2', 'Fname' => 'Rachana', 'Lname' => 'Swamy','St' => 'MAKABO', 'City' => 'BOM', 'State' => 'Liquid', 'Zipcode' => 'lol', 'Gender' => 'F',  'DOB' => '08/15/1995', 'M_Status' => 'Super Single', 'C_Type' => 'H'],
-  ];
+
+  $subject_set = find_all("subjects");
+ 
 ?>
 
-<?php $page_name='Customer'; ?>
-<?php $page_title='Customer'; ?>
-
+<?php $page_title = 'Subjects'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
-	<div id="content">
-		<div class="Customer Listing"> 
-		<h1>Customers</h1>
+<div id="content">
+  <div class="subjects listing">
+    <h1>Subjects</h1>
 
-	<div id="actions">
-		<a class="action" href="<?php echo url_for('staff/customer/new.php'); ?>">Create Customer</a>
-	</div>
+    <div class="actions">
+      <a class="action" href="<?php echo url_for('/staff/subjects/new.php'); ?>">Create New Subject</a>
+    </div>
 
-	<table class="list">
+  	<table class="list">
   	  <tr>
-        <th>Cid</th>
-        <th>Fname</th>
-        <th>Lname</th>
-  	    <th>St</th>
-  	    <th>City</th>
-  	    <th>State</th>
-  	    <th>Zipcode</th>
-  	    <th>Gender</th>
-  	    <th>DOB</th>
-  	    <th>M_Status</th>
-  	    <th>C_Type</th>
+        <th>ID</th>
+        <th>Position</th>
+        <th>Visible</th>
+  	    <th>Name</th>
+  	    <th>&nbsp;</th>
   	    <th>&nbsp;</th>
         <th>&nbsp;</th>
-        <th>&nbsp;</th>        
   	  </tr>
 
-  	  <?php foreach($Customers as $Customer) { ?>
+      <?php while($subject = mysqli_fetch_assoc($subject_set)) { ?>
         <tr>
-          <td><?php echo $Customer['Cid']; ?></td>
-          <td><?php echo $Customer['Fname']; ?></td>
-          <td><?php echo $Customer['Lname']; ?></td>
-          <td><?php echo $Customer['St']; ?></td>
-          <td><?php echo $Customer['City']; ?></td>
-          <td><?php echo $Customer['State']; ?></td>
-          <td><?php echo $Customer['Zipcode']; ?></td>
-          <td><?php echo $Customer['Gender']; ?></td>
-          <td><?php echo $Customer['DOB']; ?></td>
-          <td><?php echo $Customer['M_Status']; ?></td>
-          <td><?php echo $Customer['C_Type']; ?></td>    	    
-          <td><a class="action" href="<?php echo url_for('/staff/customer/show.php?id=' . h(u($Customer['Cid']))); ?>">View</a></td>
-          <td><a class="action" href="<?php echo url_for('/staff/customer/edit.php?id=' . h(u($Customer['Cid']))); ?>">Edit</a></td>
-          <td><a class="action" href="">Delete</a></td>
+          <td><?php echo h($subject['id']); ?></td>
+          <td><?php echo h($subject['position']); ?></td>
+          <td><?php echo $subject['visible'] == 1 ? 'true' : 'false'; ?></td>
+    	    <td><?php echo h($subject['menu_name']); ?></td>
+          <td><a class="action" href="<?php echo url_for('/staff/subjects/show.php?id=' . h(u($subject['id']))); ?>">View</a></td>
+          <td><a class="action" href="<?php echo url_for('/staff/subjects/edit.php?id=' . h(u($subject['id']))); ?>">Edit</a></td>
+          <td><a class="action" href="<?php echo url_for('/staff/subjects/delete.php?id=' . h(u($subject['id']))); ?>">Delete</a></td>
     	  </tr>
       <?php } ?>
   	</table>
 
-		</div>
-	</div>
+    <?php
+      mysqli_free_result($subject_set);
+    ?>
+  </div>
+
+</div>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>

@@ -2,9 +2,9 @@
 
 
 define("DB_SERVER", "localhost");
-define("DB_USER", "yash");
-define("DB_PASS", "12345");
-define("DB_NAME", "wds");
+define("DB_USER", "webuser");
+define("DB_PASS", "rach");
+define("DB_NAME", "WDS");
 
 
 ?>

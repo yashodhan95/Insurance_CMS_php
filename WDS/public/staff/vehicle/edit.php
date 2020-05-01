@@ -25,7 +25,7 @@ if(is_post_request()) {
   $sql .= "V_make='" . db_escape($db,$result['V_make']) . "',";
   $sql .= "V_model='" . db_escape($db,$result['V_model']) . "',";
   $sql .= "V_year='" . db_escape($db,$result['V_year']) . "',";
-  $sql .= "V_status='" . db_escape($db,$result['V_status'] . "',";
+  $sql .= "V_status='" . db_escape($db,$result['V_status']) . "',";
   $sql .= "Policy_no='" . db_escape($db,$result['Policy_no']) . "' ";
   $sql .= "WHERE Vin='" . db_escape($db,$result['Vin']) . "' ";
   $sql .= "Limit 1;";
@@ -36,7 +36,7 @@ if(is_post_request()) {
 
   if($result){
     $new_id = mysqli_insert_id($db);
-    redirect_to(url_for('/staff/vehicle/show.php?id=' . $id));
+    redirect_to(url_for('/staff/vehicle/show.php?id=' . h(u($id))));
 
   } else {
     //insert failed

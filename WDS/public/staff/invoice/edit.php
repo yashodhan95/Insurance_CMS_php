@@ -32,7 +32,7 @@ if(is_post_request()) {
 
   if($result){
     $new_id = mysqli_insert_id($db);
-    redirect_to(url_for('/staff/invoice/show.php?id=' . $id));
+    redirect_to(url_for('/staff/invoice/show.php?id=' . h(u( $id))));
 
   } else {
     //insert failed

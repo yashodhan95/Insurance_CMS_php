@@ -32,7 +32,7 @@ if(is_post_request()) {
 
   if($update){
     $new_id = mysqli_insert_id($db);
-    redirect_to(url_for('/staff/vehicle_driver/show.php?id=' . $id . '&id2=' . h(u($id2))));
+    redirect_to(url_for('/staff/vehicle_driver/show.php?id=' . h(u($id)) . '&id2=' . h(u($id2))));
 
   } else {
     //insert failed

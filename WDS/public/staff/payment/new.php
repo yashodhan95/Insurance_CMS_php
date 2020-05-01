@@ -25,7 +25,7 @@ if(is_post_request()){
 
   if($result){
     $new_id = mysqli_insert_id($db);
-    redirect_to(url_for('/staff/payment/show.php?id=' . $Instal_ID));
+    redirect_to(url_for('/staff/payment/show.php?id=' . h(u($Instal_ID))));
 
   } else {
     //insert failed
@@ -81,7 +81,7 @@ if(is_post_request()) {
       
       <dl>
         <dt>Installment Amount</dt>
-        <dd><input type="text" name="Instal_amt" value="<?php echo $Instal_amt; ?>" /></dd>
+        <dd><input type="text" name="Instal_amt" value="<?php echo h($Instal_amt); ?>" /></dd>
       </dl>
       
       <dl>
