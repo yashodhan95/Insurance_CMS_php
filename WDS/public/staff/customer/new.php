@@ -4,34 +4,38 @@ require_once('../../../private/initialize.php');
 
 if(is_post_request()){
 
-  $Cid = $_POST['Cid'] ?? '';
-  $Fname = $_POST['Fname'] ?? '';
-  $Lname = $_POST['Lname'] ?? '';
-  $St = $_POST['St'] ?? '';
-  $City = $_POST['City'] ?? '';
-  $State = $_POST['State'] ?? '';
-  $Zipcode = $_POST['Zipcode'] ?? '';
-  $Gender = $_POST['Gender'] ?? '';
-  $DOB = $_POST['DOB'] ?? '';
-  $M_Status = $_POST['M_Status'] ?? '';
-  $C_Type = $_POST['C_Type'] ?? '';
+  $customer = [];
+  $customer['Cid'] = $_POST['Cid'] ?? '';
+  $customer['Fname'] = $_POST['Fname'] ?? '';
+  $customer['Lname'] = $_POST['Lname'] ?? '';
+  $customer['St'] = $_POST['St'] ?? '';
+  $customer['City'] = $_POST['City'] ?? '';
+  $customer['State'] = $_POST['State'] ?? '';
+  $customer['Zipcode'] = $_POST['Zipcode'] ?? '';
+  $customer['Gender'] = $_POST['Gender'] ?? '';
+  $customer['DOB'] = $_POST['DOB'] ?? '';
+  $customer['M_Status'] = $_POST['M_Status'] ?? '';
+  $customer['C_Type'] = $_POST['C_Type'] ?? '';
   //$Visible = $_POST['visible'] ?? '';
 
-
+//   $errors = validate_customer($customer);
+//     if(!empty($errors)) {
+//       return $errors;
+//     }
   $sql = "Insert into customer ";
   $sql .= "(Cid, Fname, Lname, St, City, State, Zipcode, Gender, DOB, M_Status, C_Type) ";
   $sql .= "values (";
-  $sql .= "'" . db_escape($db,$Cid) . "',";
-  $sql .= "'" . db_escape($db,$Fname) . "',";
-  $sql .= "'" . db_escape($db,$Lname) . "',";
-  $sql .= "'" . db_escape($db,$St) . "',";
-  $sql .= "'" . db_escape($db,$City) . "',";
-  $sql .= "'" . db_escape($db,$State) . "',";
-  $sql .= "'" . db_escape($db,$Zipcode) . "',";
-  $sql .= "'" . db_escape($db,$Gender) . "',";
-  $sql .= "'" . db_escape($db,$DOB) . "',";
-  $sql .= "'" . db_escape($db,$M_Status) . "',";
-  $sql .= "'" . db_escape($db,$C_Type) . "'";
+  $sql .= "Cid='" . db_escape($db,$customer['Cid']) . "',";
+  $sql .= "Fname='" . db_escape($db,$customer['Fname']) . "',";
+  $sql .= "Lname='" . db_escape($db,$customer['Lname']) . "',";
+  $sql .= "St='" . db_escape($db,$customer['St']) . "',";
+  $sql .= "City='" . db_escape($db,$customer['City']) . "',";
+  $sql .= "State='" . db_escape($db,$customer['State']) . "',";
+  $sql .= "Zipcode='" . db_escape($db,$customer['Zipcode']) . "',";
+  $sql .= "Gender='" . db_escape($db,$customer['Gender']) . "',";
+  $sql .= "DOB='" . db_escape($db,$customer['DOB']) . "',";
+  $sql .= "M_Status='" . db_escape($db,$customer['M_Status']) . "',";
+  $sql .= "C_Type='" . db_escape($db,$customer['C_Type']) . "' ";
   $sql .= ")";
 
   $result = mysqli_query($db, $sql);
@@ -39,7 +43,7 @@ if(is_post_request()){
 
   if($result){
     $new_id = mysqli_insert_id($db);
-    redirect_to(url_for('/staff/customer/show.php?id=' . $Cid));
+    redirect_to(url_for('/staff/customer/show.php?id=' . h(u($customer['Cid']))));
 
   } else {
     //insert failed
@@ -53,17 +57,17 @@ else{
   }
 
 
-$Cid = '';
-$Fname = '';
-$Lname = '';
-$St = '';
-$City = '';
-$State = '';
-$Zipcode = '';
-$Gender = '';
-$DOB = '';
-$M_Status = '';
-$C_Type = '';
+$customer['Cid'] = '';
+$customer['Fname'] = '';
+$customer['Lname'] = '';
+$customer['St'] = '';
+$customer['City'] = '';
+$customer['State'] = '';
+$customer['Zipcode'] = '';
+$customer['Gender'] = '';
+$customer['DOB'] = '';
+$customer['M_Status'] = '';
+$customer['C_Type'] = '';
 
 ?>
 
@@ -76,73 +80,76 @@ $C_Type = '';
 
   <div class="customer new">
     <h1>Create Customer</h1>
+<!-- 
+    <?php echo display_errors($errors); ?>
+ -->
 
     <form action="<?php echo url_for('/staff/customer/new.php'); ?>" method="post">
       <dl>
         <dt>Cid</dt>
-        <dd><input type="number" name="Cid" min ="1" max = "999999" value="<?php echo h($Cid); ?>" /></dd>
+        <dd><input type="number" name="Cid" min ="1" max = "999999" value="<?php echo h($customer['Cid']); ?>" /></dd>
       </dl>
       
       <dl>
         <dt>First Name</dt>
-        <dd><input type="text" name="Fname" value="<?php echo $Fname; ?>" /></dd>
+        <dd><input type="text" name="Fname" value="<?php echo h($customer['Fname']); ?>" /></dd>
       </dl>
       
       <dl>
         <dt>Last Name</dt>
-        <dd><input type="text" name="Lname" value="<?php echo h($Lname); ?>" /></dd>
+        <dd><input type="text" name="Lname" value="<?php echo h($customer['Lname']); ?>" /></dd>
       </dl>
       <dl>
         <dt>Street Address</dt>
-        <dd><input type="text" name="St" value="<?php echo h($St); ?>" /></dd>
+        <dd><input type="text" name="St" value="<?php echo h($customer['St']); ?>" /></dd>
       </dl>
 
       <dl>
         <dt>City</dt>
-        <dd><input type="text" name="City" value="<?php echo h($City); ?>" /></dd>
+        <dd><input type="text" name="City" value="<?php echo h($customer['City']); ?>" /></dd>
       </dl>
       
       <dl>
         <dt>State </dt>
         <dd><input type="text" name="State" maxlength="2" style="text-transform:uppercase"
-        value="<?php echo h($State); ?>" /></dd>
+        value="<?php echo h($customer['State']); ?>" /></dd>
       </dl>
 
       <dl>
         <dt>Zipcode</dt>
-        <dd><input type="number" name="Zipcode" min="1" max="99999" value="<?php echo h($Zipcode); ?>" /></dd>
+        <dd><input type="number" name="Zipcode" min="1" max="99999" value="<?php echo h($customer['Zipcode']); ?>" /></dd>
       </dl>
 
       <dl>
         <dt>Gender</dt>
-        <dd><input type="radio" id = "Male" name="Gender" value="M" <?php if($Gender == "M") { echo "checked";} ?>
+        <dd><input type="radio" id = "Male" name="Gender" value="M" <?php if($customer['Gender'] == "M") { echo "checked";} ?>
         /><label for="Male">Male</label></dd>
-        <dd><input type="radio" id = "Female" name="Gender" value="F" <?php if($Gender == "F") { echo "checked";} ?>
+        <dd><input type="radio" id = "Female" name="Gender" value="F" <?php if($customer['Gender'] == "F") { echo "checked";} ?>
         /><label for="Female">Female</label></dd>
       </dl>
 
       <dl>
       	<dt>Date of Birth</dt>
-      	<dd><input type ="date" name="DOB" value="<?php echo h($DOB); ?>"></dd>
+      	<dd><input type ="date" name="DOB" value="<?php echo h($customer['DOB']); ?>"></dd>
       </dl>
 
       <dl>
         <dt>Marital Status</dt>
-        <dd><input type="radio" id = "Single" name="M_Status" value="S" <?php if($M_Status == "S") { echo "checked";} ?>
+        <dd><input type="radio" id = "Single" name="M_Status" value="S" <?php if($customer['M_Status'] == "S") { echo "checked";} ?>
         /><label for="Single">Single</label></dd>
-        <dd><input type="radio" id = "Married" name="M_Status" value="M" <?php if($M_Status == "M") { echo "checked";} ?>
+        <dd><input type="radio" id = "Married" name="M_Status" value="M" <?php if($customer['M_Status'] == "M") { echo "checked";} ?>
         /><label for="Married">Married</label></dd>
-        <dd><input type="radio" id = "Widowed" name="M_Status" value="W" <?php if($M_Status == "W") { echo "checked";} ?>
+        <dd><input type="radio" id = "Widowed" name="M_Status" value="W" <?php if($customer['M_Status'] == "W") { echo "checked";} ?>
         /><label for="Widowed">Widowed</label></dd>
       </dl>
 
       <dl>
         <dt>Customer Type</dt>
-        <dd><input type="radio" id = "Automobile" name="C_Type" value="A" <?php if($C_Type == "A") { echo "checked";} ?>
+        <dd><input type="radio" id = "Automobile" name="C_Type" value="A" <?php if($customer['C_Type'] == "A") { echo "checked";} ?>
         /><label for="Automobile">Automobile</label></dd>
-        <dd><input type="radio" id = "Home" name="C_Type" value="H" <?php if($C_Type == "H") { echo "checked";} ?>
+        <dd><input type="radio" id = "Home" name="C_Type" value="H" <?php if($customer['C_Type'] == "H") { echo "checked";} ?>
         /><label for="Home">Home</label></dd>
-        <dd><input type="radio" id = "Both" name="C_Type" value="AH" <?php if($C_Type == "AH") { echo "checked";} ?>
+        <dd><input type="radio" id = "Both" name="C_Type" value="AH" <?php if($customer['C_Type'] == "AH") { echo "checked";} ?>
         /><label for="Both">Both</label></dd>
       </dl>
       <div id="operations">
