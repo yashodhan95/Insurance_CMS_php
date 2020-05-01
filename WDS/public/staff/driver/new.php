@@ -24,7 +24,7 @@ if(is_post_request()){
 
   if($result){
     $new_id = mysqli_insert_id($db);
-    redirect_to(url_for('/staff/driver/show.php?id=' . $License_no));
+    redirect_to(url_for('/staff/driver/show.php?id=' . h(u($License_no))));
 
   } else {
     //insert failed
@@ -69,7 +69,7 @@ $D_DOB = '';
       
       <dl>
         <dt>First Name</dt>
-        <dd><input type="text" name="D_Fname" value="<?php echo $D_Fname; ?>" /></dd>
+        <dd><input type="text" name="D_Fname" value="<?php echo h($D_Fname); ?>" /></dd>
       </dl>
       
       <dl>
