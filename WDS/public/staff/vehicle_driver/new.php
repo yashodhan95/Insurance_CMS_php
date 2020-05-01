@@ -3,41 +3,26 @@
 require_once('../../../private/initialize.php');
 
 if(is_post_request()){
+  $vehicle_driver=[];
+  $vehicle_driver['Vin'] = $_POST['Vin'] ?? '';
+  $vehicle_driver['License_no'] = $_POST['License_no'] ?? '';
+  $vehicle_driver['Rating'] = $_POST['Rating'] ?? '';
 
-  $Vin = $_POST['Vin'] ?? '';
-  $License_no = $_POST['License_no'] ?? '';
-  $Rating = $_POST['Rating'] ?? '';
-
-  $sql = "Insert into vehicle_driver ";
-  $sql .= "(Vin, License_no, Rating) ";
-  $sql .= "values (";
-  $sql .= "'" . db_escape($db,$Vin) . "',";
-  $sql .= "'" . db_escape($db,$License_no) . "',";
-  $sql .= "'" . db_escape($db,$Rating) . "'";
-  $sql .= ")";
-
-  $result = mysqli_query($db, $sql);
+  $result = insert_vehicle_driver($vehicle_driver);
   //for insert statement the result is True or False
 
-  if($result){
+  if($result===true){
     $new_id = mysqli_insert_id($db);
-    redirect_to(url_for('/staff/vehicle_driver/show.php?id=' . h(u($Vin)) . '&id2=' . h(u($License_no))));
+    redirect_to(url_for('/staff/vehicle_driver/show.php?id=' . h(u($vehicle_driver['Vin'])) . '&id2=' . h(u($vehicle_driver['License_no']))));
 
   } else {
-    //insert failed
-    echo mysqli_error($db);
-    db_disconnect($db);
-    exit;
+    $errors = $result;
   }
+} else {
+$vehicle_driver['Vin'] = '';
+$vehicle_driver['License_no'] = '';
+$vehicle_driver['Rating'] = '';  
 }
-else{
-  
-  }
-
-$Vin = '';
-$License_no = '';
-$Rating = '';
-
 
 ?>
 <?php $page_title = 'Create Vehicle_Driver'; ?>
@@ -49,24 +34,24 @@ $Rating = '';
 
   <div class="customer new">
     <h1>Create Vehicle_Driver</h1>
-
+    <?php echo display_errors($errors); ?>
     <form action="<?php echo url_for('/staff/vehicle_driver/new.php'); ?>" method="post">
      
      <dl>
         <dt>VIN</dt>
         <dd><input type="text" name="Vin" maxlength="10" style="text-transform:uppercase"
-         value="<?php echo h($Vin); ?>" /></dd>
+         value="<?php echo h($vehicle_driver['Vin']); ?>" /></dd>
       </dl>
       
       <dl>
         <dt>License no</dt>
         <dd><input type="text" name="License_no" maxlength="10" style="text-transform:uppercase"
-         value="<?php echo h($License_no); ?>" /></dd>
+         value="<?php echo h($vehicle_driver['License_no']); ?>" /></dd>
       </dl>
       
      <dl>
         <dt>Rating</dt>
-        <dd><input type="number" min="0" max="10" name="Rating" value="<?php echo h($Rating); ?>" /></dd>
+        <dd><input type="number" min="0" max="10" name="Rating" value="<?php echo h($vehicle_driver['Rating']); ?>" /></dd>
       </dl>
      
       <div id="operations">

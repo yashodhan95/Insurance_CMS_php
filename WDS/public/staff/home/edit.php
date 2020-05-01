@@ -24,33 +24,17 @@ if(is_post_request()) {
   $home['Basement'] = $_POST['Basement'] ?? '';
   $home['Policy_no'] = $_POST['Policy_no'] ?? '';
 
-  $sql = "UPDATE home SET ";
-  $sql .= "Home_id='" . db_escape($db,$home['Home_id']) . "',";
-  $sql .= "Purchase_Date='" . db_escape($db,$home['Purchase_Date']) . "',";
-  $sql .= "Home_value='" . db_escape($db,$home['Home_value']) . "',";
-  $sql .= "Area='" . db_escape($db,$home['Area']) . "',";
-  $sql .= "Home_type='" . db_escape($db,$home['Home_type']) . "',";
-  $sql .= "Auto_fire='" . db_escape($db,$home['Auto_fire']) . "',";
-  $sql .= "Home_sec='" . db_escape($db,$home['Home_sec']) . "',";
-  $sql .= "Pool='" . db_escape($db,$home['Pool']) . "',";
-  $sql .= "Basement='" . db_escape($db,$home['Basement']) . "',";
-  $sql .= "Policy_no='" . db_escape($db,$home['Policy_no']) . "'";
-  $sql .= "WHERE Home_id='" . db_escape($db,$home['Home_id']) . "' ";
-  $sql .= "Limit 1;";
 
 
-  $result = mysqli_query($db, $sql);
+  $result = update_home($home);
   //for insert statement the result is True or False
 
-  if($result){
+  if($result===true){
     $new_id = mysqli_insert_id($db);
     redirect_to(url_for('/staff/home/show.php?id=' . h(u($id))));
 
   } else {
-    //insert failed
-    echo mysqli_error($db);
-    db_disconnect($db);
-    exit;
+    $errors = $result;
   }
 
 }
@@ -69,7 +53,7 @@ else{
 
   <div class="home edit">
     <h1>Edit Home</h1>
-
+    <?php echo display_errors($errors); ?>
     <form action="<?php echo url_for('/staff/home/edit.php?id=' . h(u($id))); ?>" method="post">
      <dl>
         <dt>Home ID</dt>

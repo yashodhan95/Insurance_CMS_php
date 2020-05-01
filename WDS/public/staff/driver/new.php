@@ -3,50 +3,27 @@
 require_once('../../../private/initialize.php');
 
 if(is_post_request()){
-
-  $License_no= $_POST['License_no'] ?? '';
-  $D_Fname = $_POST['D_Fname'] ?? '';
-  $D_Lname = $_POST['D_Lname'] ?? '';
-  $D_DOB= $_POST['D_DOB'] ?? '';
+  $driver = [];
+  $driver['License_no']= $_POST['License_no'] ?? '';
+  $driver['D_Fname'] = $_POST['D_Fname'] ?? '';
+  $driver['D_Lname'] = $_POST['D_Lname'] ?? '';
+  $driver['D_DOB']= $_POST['D_DOB'] ?? '';
   
+  $result = insert_driver($driver);
 
-
-  $sql = "Insert into drivers ";
-  $sql .= "(License_No, D_Fname, D_Lname, D_DOB) ";
-  $sql .= "values (";
-  $sql .= "'" . db_escape($db,$License_no) . "',";
-  $sql .= "'" . db_escape($db,$D_Fname) . "',";
-  $sql .= "'" . db_escape($db,$D_Lname) . "',";
-  $sql .= "'" . db_escape($db,$D_DOB) . "'";
-  $sql .= ")";
-  
-  $result = mysqli_query($db, $sql);
-
-  if($result){
+  if($result===true){
     $new_id = mysqli_insert_id($db);
-    redirect_to(url_for('/staff/driver/show.php?id=' . h(u($License_no))));
+    redirect_to(url_for('/staff/driver/show.php?id=' . h(u($driver['License_no']))));
 
   } else {
-    //insert failed
-    echo mysqli_error($db);
-    db_disconnect($db);
-    exit;
+  $errors = $result;
   }
-
+} else {
+$driver['License_no'] = '';
+$driver['D_Fname'] = '';
+$driver['D_Lname'] = '';
+$driver['D_DOB'] = '';
 }
-
-
-
-
-else{
-  
-  }
-
-
-$License_no = '';
-$D_Fname = '';
-$D_Lname = '';
-$D_DOB = '';
 
 ?>
 
@@ -59,27 +36,27 @@ $D_DOB = '';
 
   <div class="driver new">
     <h1>Create Driver</h1>
-
+    <?php echo display_errors($errors); ?>
     <form action="<?php echo url_for('/staff/driver/new.php'); ?>" method="post">
       <dl>
         <dt>License no</dt>
         <dd><input type="text" name="License_no" maxlength="10" style="text-transform:uppercase"
-         value="<?php echo h($License_no); ?>" /></dd>
+         value="<?php echo h($driver['License_no']); ?>" /></dd>
       </dl>
       
       <dl>
         <dt>First Name</dt>
-        <dd><input type="text" name="D_Fname" value="<?php echo h($D_Fname); ?>" /></dd>
+        <dd><input type="text" name="D_Fname" value="<?php echo h($driver['D_Fname']); ?>" /></dd>
       </dl>
       
       <dl>
         <dt>Last Name</dt>
-        <dd><input type="text" name="D_Lname" value="<?php echo h($D_Lname); ?>" /></dd>
+        <dd><input type="text" name="D_Lname" value="<?php echo h($driver['D_Lname']); ?>" /></dd>
       </dl>
       
       <dl>
       	<dt>Driver's Date of Birth</dt>
-      	<dd><input type ="date" name="D_DOB" value="<?php echo h($D_DOB); ?>"></dd>
+      	<dd><input type ="date" name="D_DOB" value="<?php echo h($driver['D_DOB']); ?>"></dd>
       </dl>
 
       <div id="operations">

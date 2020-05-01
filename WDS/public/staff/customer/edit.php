@@ -25,40 +25,16 @@ if(is_post_request()) {
   $customer['DOB'] = $_POST['DOB'] ?? '';
   $customer['M_Status'] = $_POST['M_Status'] ?? '';
   $customer['C_Type'] = $_POST['C_Type'] ?? '';
+  
+  $result = update_customer($customer);
 
-  $sql = "UPDATE customer SET ";
-  $sql .= "Cid='" . db_escape($db,$customer['Cid']) . "',";
-  $sql .= "Fname='" . db_escape($db,$customer['Fname']) . "',";
-  $sql .= "Lname='" . db_escape($db,$customer['Lname']) . "',";
-  $sql .= "St='" . db_escape($db,$customer['St']) . "',";
-  $sql .= "City='" . db_escape($db,$customer['City']) . "',";
-  $sql .= "State='" . db_escape($db,$customer['State']) . "',";
-  $sql .= "Zipcode='" . db_escape($db,$customer['Zipcode']) . "',";
-  $sql .= "Gender='" . db_escape($db,$customer['Gender']) . "',";
-  $sql .= "DOB='" . db_escape($db,$customer['DOB']) . "',";
-  $sql .= "M_Status='" . db_escape($db,$customer['M_Status']) . "',";
-  $sql .= "C_Type='" . db_escape($db,$customer['C_Type']) . "' ";
-  $sql .= "WHERE Cid='" . db_escape($db,$customer['Cid']) . "' ";
-  $sql .= "Limit 1;";
-
-
-  $result = mysqli_query($db, $sql);
-  //for insert statement the result is True or False
-
-  if($result){
+  if($result===true){
     $new_id = mysqli_insert_id($db);
     redirect_to(url_for('/staff/customer/show.php?id=' . h(u($id))));
-
   } else {
-    //insert failed
-    echo mysqli_error($db);
-    db_disconnect($db);
-    exit;
+  $errors = $result;
   }
-
-}
-
-else{
+} else {
   $customer = find_record("customer", "Cid" ,$id);
 }
 
@@ -72,11 +48,11 @@ else{
 
   <div class="customer edit">
     <h1>Edit Customer</h1>
-
+    <?php echo display_errors($errors); ?>
     <form action="<?php echo url_for('/staff/customer/edit.php?id=' . h(u($id))); ?>" method="post">
       <dl>
         <dt>Cid</dt>
-        <dd><input type="number" name="Cid" min ="1" max = "999999" value="<?php echo h($customer['Cid']); ?>" /></dd>
+        <dd><input type="number" name="Cid" min ="100000" max = "999999" value="<?php echo h($customer['Cid']); ?>" /></dd>
       </dl>
       
       <dl>

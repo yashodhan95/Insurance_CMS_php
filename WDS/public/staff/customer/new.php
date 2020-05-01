@@ -18,45 +18,16 @@ if(is_post_request()){
   $customer['C_Type'] = $_POST['C_Type'] ?? '';
   //$Visible = $_POST['visible'] ?? '';
 
-//   $errors = validate_customer($customer);
-//     if(!empty($errors)) {
-//       return $errors;
-//     }
-  $sql = "Insert into customer ";
-  $sql .= "(Cid, Fname, Lname, St, City, State, Zipcode, Gender, DOB, M_Status, C_Type) ";
-  $sql .= "values (";
-  $sql .= "Cid='" . db_escape($db,$customer['Cid']) . "',";
-  $sql .= "Fname='" . db_escape($db,$customer['Fname']) . "',";
-  $sql .= "Lname='" . db_escape($db,$customer['Lname']) . "',";
-  $sql .= "St='" . db_escape($db,$customer['St']) . "',";
-  $sql .= "City='" . db_escape($db,$customer['City']) . "',";
-  $sql .= "State='" . db_escape($db,$customer['State']) . "',";
-  $sql .= "Zipcode='" . db_escape($db,$customer['Zipcode']) . "',";
-  $sql .= "Gender='" . db_escape($db,$customer['Gender']) . "',";
-  $sql .= "DOB='" . db_escape($db,$customer['DOB']) . "',";
-  $sql .= "M_Status='" . db_escape($db,$customer['M_Status']) . "',";
-  $sql .= "C_Type='" . db_escape($db,$customer['C_Type']) . "' ";
-  $sql .= ")";
+  $result = insert_customer($customer);
 
-  $result = mysqli_query($db, $sql);
-  //for insert statement the result is True or False
-
-  if($result){
+  if($result===true){
     $new_id = mysqli_insert_id($db);
     redirect_to(url_for('/staff/customer/show.php?id=' . h(u($customer['Cid']))));
 
   } else {
-    //insert failed
-    echo mysqli_error($db);
-    db_disconnect($db);
-    exit;
+  $errors = $result;
   }
-}
-else{
-
-  }
-
-
+} else {
 $customer['Cid'] = '';
 $customer['Fname'] = '';
 $customer['Lname'] = '';
@@ -68,6 +39,7 @@ $customer['Gender'] = '';
 $customer['DOB'] = '';
 $customer['M_Status'] = '';
 $customer['C_Type'] = '';
+  }
 
 ?>
 
@@ -80,9 +52,7 @@ $customer['C_Type'] = '';
 
   <div class="customer new">
     <h1>Create Customer</h1>
-<!-- 
     <?php echo display_errors($errors); ?>
- -->
 
     <form action="<?php echo url_for('/staff/customer/new.php'); ?>" method="post">
       <dl>
@@ -92,12 +62,12 @@ $customer['C_Type'] = '';
       
       <dl>
         <dt>First Name</dt>
-        <dd><input type="text" name="Fname" value="<?php echo h($customer['Fname']); ?>" /></dd>
+        <dd><input type="text" name="Fname" style="text-transform:uppercase" value="<?php echo $customer['Fname']; ?>" /></dd>
       </dl>
       
       <dl>
         <dt>Last Name</dt>
-        <dd><input type="text" name="Lname" value="<?php echo h($customer['Lname']); ?>" /></dd>
+        <dd><input type="text" name="Lname" style="text-transform:uppercase" value="<?php echo h($customer['Lname']); ?>" /></dd>
       </dl>
       <dl>
         <dt>Street Address</dt>

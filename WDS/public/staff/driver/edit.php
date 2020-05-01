@@ -18,31 +18,15 @@ if(is_post_request()) {
   $driver['D_Lname'] = $_POST['D_Lname'] ?? '';
   $driver['D_DOB'] = $_POST['D_DOB'] ?? '';
 
-  $sql = "UPDATE drivers SET ";
-  $sql .= "License_no='" . db_escape($db,$driver['License_no']) . "',";
-  $sql .= "D_Fname='" . db_escape($db,$driver['D_Fname']) . "',";
-  $sql .= "D_Lname='" . db_escape($db,$driver['D_Lname']) . "',";
-  $sql .= "D_DOB='" . db_escape($db,$driver['D_DOB']) . "'";
-  $sql .= "WHERE License_no='" . db_escape($db,$driver['License_no']) . "' ";
-  $sql .= "Limit 1;";
+  $result = update_driver($driver);
 
-
-  $result = mysqli_query($db, $sql);
-  //for insert statement the result is True or False
-
-  if($result){
+  if($result===true){
     $new_id = mysqli_insert_id($db);
     redirect_to(url_for('/staff/driver/show.php?id=' . h(u($id))));
-
   } else {
-    //insert failed
-    echo mysqli_error($db);
-    db_disconnect($db);
-    exit;
+  $errors = $result;
   }
-
-}
-else{
+} else {
   $driver = find_record("drivers", "License_no" ,$id);
 }
 
@@ -56,7 +40,7 @@ else{
 
   <div class="driver edit">
     <h1>Edit Driver</h1>
-
+    <?php echo display_errors($errors); ?>
     <form action="<?php echo url_for('/staff/driver/edit.php?id=' . h(u($id))); ?>" method="post">
       <dl>
         <dt>License no</dt>

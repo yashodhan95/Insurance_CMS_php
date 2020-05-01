@@ -18,27 +18,16 @@ if(is_post_request()) {
   $vehicle_driver['License_no'] = $_POST['License_no'] ?? '';
   $vehicle_driver['Rating'] = $_POST['Rating'] ?? '';
 
-//UPDATE `vehicle_driver` SET `Rating` = '9' WHERE `vehicle_driver`.`Vin` = 'C167731467' AND `vehicle_driver`.`License_no` = 'A465488148';
-  $sql = "UPDATE vehicle_driver SET ";
-  $sql .= "Vin='" . db_escape($db,$vehicle_driver['Vin']) . "', ";
-  $sql .= "License_no='" . db_escape($db,$vehicle_driver['License_no']) . "', ";
-  $sql .= "Rating='" . db_escape($db,$vehicle_driver['Rating']) . "' ";
-  $sql .= "WHERE Vin='" . db_escape($db,$vehicle_driver['Vin']) . "' ";
-  $sql .= "AND License_no='" . db_escape($db,$vehicle_driver['License_no']) . "' ";
-  $sql .= "Limit 1;";
 
-  $update = mysqli_query($db, $sql);
+  $update = update_vehicle_driver($vehicle_driver);
   //for insert statement the vehicle_driver is True or False
 
-  if($update){
+  if($update===true){
     $new_id = mysqli_insert_id($db);
     redirect_to(url_for('/staff/vehicle_driver/show.php?id=' . h(u($id)) . '&id2=' . h(u($id2))));
 
   } else {
-    //insert failed
-    echo mysqli_error($db);
-    db_disconnect($db);
-    exit;
+    $errors =  $update;
   }
 
 
@@ -57,7 +46,7 @@ else{
 
   <div class="customer edit">
     <h1>Edit Customer</h1>
-
+    <?php echo display_errors($errors); ?>
     <form action="<?php echo url_for('/staff/vehicle_driver/edit.php?id=' . h(u($id)) . '&id2=' . h(u($id2))); ?>" method="post">
       <dl>
         <dt>VIN</dt>

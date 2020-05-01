@@ -21,28 +21,14 @@ if(is_post_request()) {
   $policy['Premium'] = $_POST['Premium'] ?? '';
   $policy['Status'] = $_POST['Status'] ?? '';
 
-  $sql = "UPDATE policy SET ";
-  $sql .= "Policy_no='" . db_escape($db,$policy['Policy_no']) . "', ";
-  $sql .= "P_Type='" . db_escape($db,$policy['P_Type']) . "', ";
-  $sql .= "Cid='" . db_escape($db,$policy['Cid']) . "', ";
-  $sql .= "Start_Date='" . db_escape($db,$policy['Start_Date']) . "', ";
-  $sql .= "End_Date='" . db_escape($db,$policy['End_Date']) . "', ";
-  $sql .= "Premium='" . db_escape($db,$policy['Premium']) . "', ";
-  $sql .= "Status = '" . db_escape($db,$policy['Status']) . "' ";
-  $sql .= "WHERE Policy_no='" . db_escape($db,$policy['Policy_no']) . "' ";
-  $sql .= "Limit 1";
-
-  $result = mysqli_query($db, $sql);
+  $result = update_policy($policy);
   //for insert Statusment the result is True or False
 
-  if($result){
+  if($result===true){
     $new_id = mysqli_insert_id($db);
     redirect_to(url_for('/staff/policy/show.php?id=' . h(u($id))));
   } else {
-    //insert failed
-    echo mysqli_error($db);
-    db_disconnect($db);
-    exit;
+    $errors = $result;
   }
 
 }else{
@@ -59,7 +45,7 @@ if(is_post_request()) {
 
   <div class="policy edit">
     <h1>Edit Policy</h1>
-
+    <?php echo display_errors($errors); ?>
     <form action="<?php echo url_for('/staff/policy/edit.php?id=' . h(u($id))); ?>" method="post">
       <dl>
         <dt>Policy Number</dt>
