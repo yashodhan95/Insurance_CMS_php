@@ -1,12 +1,19 @@
-<!doctype html>
+<?php require_once('../private/initialize.php'); ?>
 
-<html lang="en">
-  <head>
-    <title>We Do Secure (WDS)</title>
-    <meta charset="utf-8">
-  </head>
+<?php include(SHARED_PATH . '/public_header.php'); ?>
 
-  <body>
-    <h1> We Do Secure Home & Auto Insurance: Coming Soon</h1>
-  </body>
-</html>
+<div id="Main">
+
+	<?php include(SHARED_PATH . '/public_navigation.php')?>
+
+	<div id="Page">
+
+	<?php 
+	include(SHARED_PATH . '/static_homepage.php')
+	?>
+
+	</div>
+
+</div>
+
+<?php include(SHARED_PATH . '/public_footer.php'); ?>

@@ -796,4 +796,36 @@ function validate_vehicle_driver($vehicle_driver) {
     exit;
   }
   }
+
+  ///requets
+
+  function insert_request($request){
+  global $db;
+
+  $sql = "Insert into request_auto ";
+  $sql .= "(Fname, Lname, St, City, State, Zipcode, Gender, DOB, M_Status, Itype) ";
+  $sql .= "values (";
+  $sql .= "'" . db_escape($db,$request['Fname']) . "',";
+  $sql .= "'" . db_escape($db,$request['Lname']) . "',";
+  $sql .= "'" . db_escape($db,$request['St']) . "',";
+  $sql .= "'" . db_escape($db,$request['City']) . "',";
+  $sql .= "'" . db_escape($db,$request['State']) . "',";
+  $sql .= "'" . db_escape($db,$request['Zipcode']) . "',";
+  $sql .= "'" . db_escape($db,$request['Gender']) . "',";
+  $sql .= "'" . db_escape($db,$request['DOB']) . "',";
+  $sql .= "'" . db_escape($db,$request['M_Status']) . "',";
+  $sql .= "'" . db_escape($db,$request['Itype']) . "'";
+  $sql .= ")";
+
+    $result = mysqli_query($db, $sql);
+
+    if($result){
+    return true;
+    } else {
+    //insert failed
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
+    }
+  }
 ?>
