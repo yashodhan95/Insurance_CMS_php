@@ -11,7 +11,7 @@ if(is_post_request()){
 
 if($report['new_old'] == "N") {
 	#echo "New";
-	redirect_to(url_for('/auto_insurance/auto_new_customer.php'));
+	redirect_to(url_for('/auto_insurance/new_customer_application.php'));
 } 
 elseif($report['new_old'] == "E") {
 	#echo "Old";
@@ -28,7 +28,7 @@ else {
 <div id="Main">
 	<div id="Page">
 
-	<h1>Welcome</h1>
+	<h1>Welcome to WDS Auto Insurance</h1>
     <?php echo display_errors($errors); ?>
 
     <a class="back-link" href="<?php echo url_for('index.php'); ?>">&laquo; Back To Main Menu</a>
@@ -46,7 +46,7 @@ else {
       <div id="operations">
         <input type="submit" value="Submit" />
       </div>
-
+  </form>
 
 	</div>
 	

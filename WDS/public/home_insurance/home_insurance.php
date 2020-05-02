@@ -1,21 +1,51 @@
-<?php require_once('../../private/initialize.php'); ?>
+<?php require_once('../../private/initialize.php'); 
+
+if(is_post_request()){
+
+  $report = [];
+  $report['new_old'] = $_POST['new_old'] ?? '';
+  
+} else {
+  $report['new_old'] = '';
+}
+
+if($report['new_old'] == "N") {
+	#echo "New";
+	redirect_to(url_for('/auto_insurance/new_customer_application.php'));
+} 
+elseif($report['new_old'] == "E") {
+	#echo "Old";
+	redirect_to(url_for('/home_insurance/home_old_customer.php'));
+}
+else {
+
+}
+
+?>
 
 <?php include(SHARED_PATH . '/public_header.php'); ?>
 
-<div id="Main">
-
-	
-
+<div id="Main">	
 	<div id="Page">
 
-	<?php echo "Home Insurance Page Coming Soon!"	?>
-	<div id="content">
-	<h2>At WDS, we have the products and customer service to back up our "worldly" claims. Give us a try, and you'll see we stand by our values and our customers.</h2>
-	</div>
+	<h1>Welcome</h1>
+    <?php echo display_errors($errors); ?>
+	<a class="back-link" href="<?php echo url_for('index.php'); ?>">&laquo; Back To Main Menu</a>
 
-	</div>
-	<div>
-		
+	<form action="<?php echo url_for('/home_insurance/home_insurance.php'); ?>" method="post">
+	  <dl>
+        <dt>Existing or New Customer?</dt>
+        <dd><input type="radio" id = "New" name="new_old" value="N" <?php if($report['new_old'] == "N") { echo "checked";} ?>
+        /><label for="New">New</label></dd>
+        <dd><input type="radio" id = "Existing" name="new_old" value="E" <?php if($report['new_old'] == "E") { echo "checked";} ?>
+        /><label for="Existing">Existing</label></dd>
+
+      </dl>
+
+      <div id="operations">
+        <input type="submit" value="Submit" />
+      </div>
+  	</form>
 	</div>
 
 </div>

@@ -21,7 +21,7 @@ if(is_post_request()){
 
   if($result===true){
     $new_id = mysqli_insert_id($db);
-    redirect_to(url_for('/auto_insurance/auto_insurance.php'));
+    redirect_to(url_for('/auto_insurance/thank_you.php?id=' . h(u($request['Fname'])) .'&id2=' . h(u($request['Itype']))));
 
   } else {
   $errors = $result;
@@ -49,9 +49,10 @@ $request['Itype'] = '';
   <a class="back-link" href="<?php echo url_for('/auto_insurance/auto_insurance.php'); ?>">&laquo; Back</a>
 
   <div class="request edit">
-    <h1>Enter Details</h1>
+    <h1>Welcome to Auto Insurance</h1>
+    <h2>Enter Details</h2>
     <?php echo display_errors($errors); ?>
-    <form action="<?php echo url_for('/auto_insurance/auto_new_customer.php'); ?>" method="post">
+    <form action="<?php echo url_for('/auto_insurance/new_customer_application.php'); ?>" method="post">
      
       <dl>
         <dt>First Name</dt>
@@ -104,10 +105,11 @@ $request['Itype'] = '';
         <dt>Insurance Type?</dt>
         <dd><input type="radio" id = "Auto" name="Itype" value="A" /><label for="Auto">Auto</label></dd>
         <dd><input type="radio" id = "Home" name="Itype" value="H" /><label for="Home">Home</label></dd>
+        <dd><input type="radio" id = "Home" name="Itype" value="B" /><label for="Home">Both</label></dd>
       </dl>
 
       <div id="operations">
-        <input type="submit" value="Details" />
+        <input type="submit" value="Submit" />
       </div>
     </form>
   </div>

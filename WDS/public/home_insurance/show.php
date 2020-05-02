@@ -7,11 +7,11 @@
   $policy = find_record("policy", "Policy_no", $id2 )
 ?>
 
-<?php $page_title = 'Your Auto Insurance'; ?>
+<?php $page_title = 'Show Customer'; ?>
 <?php include(SHARED_PATH . '/public_header.php'); ?>
 
 <div id="content">
-    <a class="back-link" href="<?php echo url_for('/auto_insurance/auto_insurance.php');
+    <a class="back-link" href="<?php echo url_for('/home_insurance/home_insurance.php');
     ?>">&laquo; Back to List</a>
     
     <div class="customer show">
@@ -55,4 +55,3 @@
 
 
 <?php include(SHARED_PATH . '/public_footer.php'); ?>
-
