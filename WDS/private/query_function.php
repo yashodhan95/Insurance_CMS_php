@@ -799,6 +799,40 @@ function validate_vehicle_driver($vehicle_driver) {
 
   ///requets
 
+  function validate_request($request) {
+  $errors = [];
+
+    if(is_blank($request['Fname'])) {
+      $errors[] = "Missing: First Name";
+      } 
+    if(is_blank($request['Lname'])) {
+      $errors[] = "Missing: Last Name";
+      } 
+    if(is_blank($request['St'])) {
+      $errors[] = "Missing: Street Address ";
+      } 
+    if(is_blank($request['City'])) {
+      $errors[] = "Missing: City ";
+      } 
+    if(is_blank($request['State'])) {
+      $errors[] = "Missing: State ";
+      } elseif(!has_length($request['State'],['exact'=>'2'])) {
+      $errors[] = "State must be 2 characters. Example NY for New York ";
+      }
+    if(is_blank($request['Zipcode'])) {
+      $errors[] = "Missing: Zipcode";
+      } elseif(!has_length($request['Zipcode'],['exact'=>'5'])) {
+      $errors[] = "Zipcode must have 5 digits. ";
+      }
+    if(is_blank($request['DOB'])) {
+      $errors[] = "Missing: Date of Birth";
+      } 
+    if(is_blank($request['M_Status'])) {
+      $errors[] = "Please select Marital staus.";
+      } 
+     return $errors;
+  }
+
   function insert_request($request){
   global $db;
 
@@ -828,4 +862,142 @@ function validate_vehicle_driver($vehicle_driver) {
     exit;
     }
   }
+
+  //////////////////////ADMIN//////////////////////////////////  
+function validate_admin($admin) {
+
+    $errors=[];
+
+    if(is_blank($admin['first_name'])) {
+      $errors[] = "First name cannot be blank.";
+    } elseif (!has_length($admin['first_name'], array('min' => 2, 'max' => 255))) {
+      $errors[] = "First name must be between 2 and 255 characters.";
+    }
+
+    if(is_blank($admin['last_name'])) {
+      $errors[] = "Last name cannot be blank.";
+    } elseif (!has_length($admin['last_name'], array('min' => 2, 'max' => 255))) {
+      $errors[] = "Last name must be between 2 and 255 characters.";
+    }
+
+    if(is_blank($admin['email'])) {
+      $errors[] = "Email cannot be blank.";
+    } elseif (!has_length($admin['email'], array('max' => 255))) {
+      $errors[] = "Last name must be less than 255 characters.";
+    } elseif (!has_valid_email_format($admin['email'])) {
+      $errors[] = "Email must be a valid format.";
+    }
+
+    if(is_blank($admin['username'])) {
+      $errors[] = "Username cannot be blank.";
+    } elseif (!has_length($admin['username'], array('min' => 8, 'max' => 255))) {
+      $errors[] = "Username must be between 8 and 255 characters.";
+    } elseif (!has_unique_username($admin['username'], $admin['id'] ?? 0)) {
+      $errors[] = "Username not allowed. Try another.";
+    }
+
+    if(is_blank($admin['hashed_password'])) {
+      $errors[] = "Password cannot be blank.";
+    } elseif (!has_length($admin['hashed_password'], array('min' => 8))) {
+      $errors[] = "Password must contain 9 or more characters";
+    } elseif (!preg_match('/[A-Z]/', $admin['hashed_password'])) {
+      $errors[] = "Password must contain at least 1 uppercase letter";
+    } elseif (!preg_match('/[a-z]/', $admin['hashed_password'])) {
+      $errors[] = "Password must contain at least 1 lowercase letter";
+    } elseif (!preg_match('/[0-9]/', $admin['hashed_password'])) {
+      $errors[] = "Password must contain at least 1 number";
+    } elseif (!preg_match('/[^A-Za-z0-9\s]/', $admin['hashed_password'])) {
+      $errors[] = "Password must contain at least 1 symbol";
+    }
+
+    if(is_blank($admin['confirmed_password'])) {
+      $errors[] = "Confirm password cannot be blank.";
+    } elseif ($admin['hashed_password'] !== $admin['confirmed_password']) {
+      $errors[] = "Password and confirm password must match.";
+    }
+
+    return $errors;
+  }
+
+  
+  function insert_admin($admin) {
+  global $db;
+    
+  $errors = validate_admin($admin);
+    if(!empty($errors)) {
+      return $errors;
+    }
+
+  $hashed_password = password_hash($admin['hashed_password'], PASSWORD_BCRYPT);
+
+  $sql = "INSERT INTO admins ";
+  $sql .= "(first_name, last_name, email, username, hashed_password) ";
+  $sql .= "VALUES (";
+  $sql .= "'" . db_escape($db,$admin['first_name']) . "',";
+  $sql .= "'" . db_escape($db,$admin['last_name']) . "',";
+  $sql .= "'" . db_escape($db,$admin['email']) . "',";
+  $sql .= "'" . db_escape($db,$admin['username']) . "',";
+  $sql .= "'" . db_escape($db,$hashed_password) . "'";
+ 
+  $sql .= ")";
+
+  $result = mysqli_query($db, $sql);
+
+    if($result){
+    return true;
+    } else {
+    //insert failed
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
+    }
+  }
+
+  function update_admin($admin){
+  global $db;
+  
+  $errors = validate_admin($admin);
+    if(!empty($errors)) {
+      return $errors;
+    }
+
+  $hashed_password = password_hash($admin['hashed_password'], PASSWORD_BCRYPT);
+
+  $sql = "UPDATE admins SET ";
+  $sql .= "first_name='" . db_escape($db,$admin['first_name']) . "',";
+  $sql .= "last_name='" . db_escape($db,$admin['last_name']) . "',";
+  $sql .= "email='" . db_escape($db,$admin['email']) . "',";
+  $sql .= "username='" . db_escape($db,$admin['username']) . "',";
+  $sql .= "hashed_password='" . db_escape($db,$hashed_password) . "' ";
+  $sql .= "WHERE id='" . db_escape($db,$admin['id']) . "' ";
+  $sql .= "Limit 1;";
+
+
+  $result = mysqli_query($db, $sql);
+  //for insert statement the result is True or False
+
+  if($result){
+    return true;
+  } else {
+    //insert failed
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
+  }
+  }
+
+  function find_admin($id){
+    global $db;
+    $sql = "SELECT * FROM admins ";
+      $sql .="WHERE username='" . db_escape($db,$id) . "';";
+      $result = mysqli_query($db, $sql);
+      confirm_result_set($result);
+
+      $parcel = mysqli_fetch_assoc($result);
+
+      mysqli_free_result($result);
+      return $parcel;
+    }
+
+
 ?>

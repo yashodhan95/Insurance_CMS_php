@@ -26,6 +26,7 @@ if(is_post_request()) {
 
   if($result===true){
     $new_id = mysqli_insert_id($db);
+    $_SESSION['message'] = 'Policy Info Edited!';
     redirect_to(url_for('/staff/policy/show.php?id=' . h(u($id))));
   } else {
     $errors = $result;

@@ -22,6 +22,7 @@ if(is_post_request()){
 
   if($result===true){
     $new_id = mysqli_insert_id($db);
+    $_SESSION['message'] = 'New Customer Added!';
     redirect_to(url_for('/staff/customer/show.php?id=' . h(u($customer['Cid']))));
 
   } else {

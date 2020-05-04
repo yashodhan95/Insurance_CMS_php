@@ -16,6 +16,7 @@ if(is_post_request()){
 
   if($result===true){
     $new_id = mysqli_insert_id($db);
+    $_SESSION['message'] = 'New Vehicle Added!';
     redirect_to(url_for('/staff/vehicle/show.php?id=' . h(u($vehicle['Vin']))));
   } else {
     $errors = $result;

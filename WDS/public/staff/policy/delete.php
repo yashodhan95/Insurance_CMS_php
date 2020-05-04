@@ -10,6 +10,7 @@ $id = $_GET['id'];
 
 if(is_post_request()) {
 $result=delete_record("policy", "Policy_no" ,$id);
+$_SESSION['message'] = 'Policy Info Deleted!';
 redirect_to(url_for('/staff/policy/index.php'));
 }
 else{

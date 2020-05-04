@@ -12,7 +12,7 @@ $id2=$_GET['id2'];
 
 if(is_post_request()) {
 $result=delete_vehicle_driver_record($id,$id2);
-
+$_SESSION['message'] = 'Rating Deleted!';
 redirect_to(url_for('/staff/vehicle_driver/index.php'));
 }
 else{

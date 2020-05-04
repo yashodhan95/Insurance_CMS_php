@@ -12,6 +12,7 @@ $home = find_record("home", "Home_id" ,$id);
 
 if(is_post_request()) {
 $result=delete_record("home", "Home_id" ,$id);
+$_SESSION['message'] = 'Home Info Deleted!';
 redirect_to(url_for('/staff/home/index.php'));
 }
 else{

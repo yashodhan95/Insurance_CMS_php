@@ -22,6 +22,7 @@ if(is_post_request()){
 
   if($result===true){
     $new_id = mysqli_insert_id($db);
+    $_SESSION['message'] = 'New Home Added!';
     redirect_to(url_for('/staff/home/show.php?id=' . h(u($home['Home_id']))));
 
   } else {

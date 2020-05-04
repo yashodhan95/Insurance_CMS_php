@@ -12,6 +12,7 @@ $invoice = find_record("invoice", "Invoice_id" ,$id);
 
 if(is_post_request()) {
 $result=delete_record("invoice", "Invoice_id" ,$id);
+$_SESSION['message'] = 'Invoice Info Deleted!';
 redirect_to(url_for('/staff/invoice/index.php'));
 }
 else{

@@ -17,3 +17,5 @@
         </a>
       </h1>
     </header>
+
+    <?php echo display_session_message(); ?>

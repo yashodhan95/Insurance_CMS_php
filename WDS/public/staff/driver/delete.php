@@ -12,6 +12,7 @@ $id = $_GET['id'];
 
 if(is_post_request()) {
 $result=delete_record("drivers", "License_no" ,$id);
+$_SESSION['message'] = 'Driver Deleted!';
 redirect_to(url_for('/staff/driver/index.php'));
 }
 else{

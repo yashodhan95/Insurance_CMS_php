@@ -12,6 +12,7 @@ $payment = find_record("payment", "Instal_ID" ,$id);
 
 if(is_post_request()) {
 $result=delete_record("payment", "Instal_ID" ,$id);
+$_SESSION['message'] = 'Payment Info Deleted !';
 redirect_to(url_for('/staff/payment/index.php'));
 }
 else{

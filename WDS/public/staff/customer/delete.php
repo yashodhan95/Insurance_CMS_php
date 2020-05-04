@@ -12,6 +12,7 @@ $customer = find_record("customer", "Cid" ,$id);
 
 if(is_post_request()) {
 $result=delete_record("customer", "Cid" ,$id);
+$_SESSION['message'] = 'Customer Data Deleted!';
 redirect_to(url_for('/staff/customer/index.php'));
 }
 else{

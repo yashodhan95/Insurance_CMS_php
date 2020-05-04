@@ -13,6 +13,7 @@ if(is_post_request()){
 
   if($result===true){
     $new_id = mysqli_insert_id($db);
+    $_SESSION['message'] = 'New Rating Added!';
     redirect_to(url_for('/staff/vehicle_driver/show.php?id=' . h(u($vehicle_driver['Vin'])) . '&id2=' . h(u($vehicle_driver['License_no']))));
 
   } else {

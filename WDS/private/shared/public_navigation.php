@@ -13,7 +13,7 @@
       <h2>Staff</h2>
       <ul>
               
-        <li><a href="<?php echo url_for('/staff/index.php'); ?>">Login</a></li>
+        <li><a href="<?php echo url_for('/staff/login.php'); ?>">Login</a></li>
         
       </ul>
   </ul>

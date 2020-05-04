@@ -12,6 +12,7 @@ $vehicle = find_record("vehicle", "Vin" ,$id);
 
 if(is_post_request()) {
 $result=delete_record("vehicle", "Vin" ,$id);
+$_SESSION['message'] = 'Vehicle Info Deletd';
 redirect_to(url_for('/staff/vehicle/index.php'));
 }
 else{

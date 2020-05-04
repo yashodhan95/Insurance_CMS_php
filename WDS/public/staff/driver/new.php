@@ -13,6 +13,7 @@ if(is_post_request()){
 
   if($result===true){
     $new_id = mysqli_insert_id($db);
+    $_SESSION['message'] = 'New Driver Added!';
     redirect_to(url_for('/staff/driver/show.php?id=' . h(u($driver['License_no']))));
 
   } else {
