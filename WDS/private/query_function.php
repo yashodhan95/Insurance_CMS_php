@@ -797,7 +797,7 @@ function validate_vehicle_driver($vehicle_driver) {
   }
   }
 
-  ///requets
+  ////////////////////////requets///////////////////////
 
   function validate_request($request) {
   $errors = [];
@@ -808,6 +808,13 @@ function validate_vehicle_driver($vehicle_driver) {
     if(is_blank($request['Lname'])) {
       $errors[] = "Missing: Last Name";
       } 
+    if(is_blank($request['Email'])) {
+      $errors[] = "Email cannot be blank.";
+    } elseif (!has_length($request['Email'], array('max' => 255))) {
+      $errors[] = "Last name must be less than 255 characters.";
+    } elseif (!has_valid_email_format($request['Email'])) {
+      $errors[] = "Email must be a valid format.";
+    }
     if(is_blank($request['St'])) {
       $errors[] = "Missing: Street Address ";
       } 
@@ -841,6 +848,7 @@ function validate_vehicle_driver($vehicle_driver) {
   $sql .= "values (";
   $sql .= "'" . db_escape($db,$request['Fname']) . "',";
   $sql .= "'" . db_escape($db,$request['Lname']) . "',";
+  $sql .= "'" . db_escape($db,$request['Email']) . "',";
   $sql .= "'" . db_escape($db,$request['St']) . "',";
   $sql .= "'" . db_escape($db,$request['City']) . "',";
   $sql .= "'" . db_escape($db,$request['State']) . "',";

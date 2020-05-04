@@ -303,11 +303,11 @@ INSERT INTO `policy` (`Policy_no`, `P_Type`, `Cid`, `Start_Date`, `End_Date`, `P
 --
 -- Table structure for table `request`
 --
-
 CREATE TABLE `request` (
   `Request_time` datetime NOT NULL DEFAULT current_timestamp(),
   `Fname` varchar(30) NOT NULL,
   `Lname` varchar(30) NOT NULL,
+  `Email` varchar(255) NOT NULL, 
   `St` varchar(30) NOT NULL,
   `City` varchar(30) NOT NULL,
   `State` varchar(30) NOT NULL,
@@ -322,15 +322,14 @@ CREATE TABLE `request` (
 -- Dumping data for table `request`
 --
 
-INSERT INTO `request` (`Request_time`, `Fname`, `Lname`, `St`, `City`, `State`, `Zipcode`, `Gender`, `DOB`, `M_Status`, `Itype`) VALUES
-('0000-00-00 00:00:00', 'Yashodhan', 'Joshi', '556 83rd ST', 'BROOKLYN', 'NY', 11209, 'M', '2020-05-12', 'S', 'H'),
-('2020-05-02 15:37:31', 'Tejas', 'Awasarmol', '19th Ellora, 20/21 Carter Road', 'MUMBAI', 'MAHARASHTRA', 40005, 'M', '2020-05-21', 'M', 'B'),
-('2020-05-02 15:39:47', 'test', 'test', 'test', 'test', 'tt', 11233, 'F', '2007-01-22', 'M', 'A'),
-('2020-05-02 15:52:40', 'Abel', 'Kumar', 'Test', 'Test', 'TT', 11209, 'M', '2020-05-07', 'W', 'A'),
-('2020-05-02 16:04:03', 'Abel', 'Kumar', 'Test', 'Test', 'TT', 11209, 'M', '2020-05-07', 'W', 'A'),
-('2020-05-02 16:07:16', 'lol', 'lol', 'lol', 'lol', 'lol', 11234, 'F', '2020-05-19', 'S', 'A'),
-('2020-05-04 12:12:56', 'Yashodhan', 'Joshi', '556 83rd ST, Apt #1', 'BROOKLYN', 'NY', 11209, 'M', '2020-05-22', 'M', 'H'),
-('2020-05-04 12:14:25', '', '', '', '', '', 0, '', '0000-00-00', '', '');
+INSERT INTO `request` (`Request_time`, `Fname`, `Lname`, `Email`, `St`, `City`, `State`, `Zipcode`, `Gender`, `DOB`, `M_Status`, `Itype`) VALUES
+('0000-00-00 00:00:00', 'Yashodhan', 'Joshi', 'yashodhanjoshi@gmail.com', '556 83rd ST', 'BROOKLYN', 'NY', 11209, 'M', '2020-05-12', 'S', 'H'),
+('2020-05-02 15:37:31', 'Tejas', 'Awasarmol', 'ta123@gmail.com', '19th Ellora, 20/21 Carter Road', 'MUMBAI', 'MAHARASHTRA', 40005, 'M', '2020-05-21', 'M', 'B'),
+('2020-05-02 15:39:47', 'test', 'test', 'tt@gmail.com','test', 'test', 'tt', 11233, 'F', '2007-01-22', 'M', 'A'),
+('2020-05-02 15:52:40', 'Abel', 'Kumar','tt@gmail.com', 'Test', 'Test', 'TT', 11209, 'M', '2020-05-07', 'W', 'A'),
+('2020-05-02 16:04:03', 'Abel', 'Kumar','tt@gmail.com', 'Test', 'Test', 'TT', 11209, 'M', '2020-05-07', 'W', 'A'),
+('2020-05-02 16:07:16', 'lol', 'lol','tt@gmail.com', 'lol', 'lol', 'lol', 11234, 'F', '2020-05-19', 'S', 'A'),
+('2020-05-04 12:12:56', 'Yashodhan', 'Joshi','tt@gmail.com', '556 83rd ST, Apt #1', 'BROOKLYN', 'NY', 11209, 'M', '2020-05-22', 'M', 'H');
 
 -- --------------------------------------------------------
 
