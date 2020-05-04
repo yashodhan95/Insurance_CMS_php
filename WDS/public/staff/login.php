@@ -19,15 +19,15 @@ if(is_post_request()) {
   }
   //if no error process form
   if(empty($errors)){
-
-
     $admin = find_admin($username);
+
     if($admin){
       
-      if(password_verify($password_verify, $admin['hashed_password'])){
+      if(password_verify($password, $admin['hashed_password'])){
         //password matches
           log_in_admin($admin);
           #$_SESSION['message'] = 'Login Succesful!';
+           redirect_to(url_for('/staff/index.php'));
       }
       else{
         //username correct but password wrong
@@ -40,10 +40,8 @@ if(is_post_request()) {
     }
   }
 
-  log_in_admin($admin);
-  #$_SESSION['message'] = 'Login Succesful!';
 
-  redirect_to(url_for('/staff/index.php'));
+  
 }
 
 ?>

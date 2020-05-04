@@ -1,4 +1,8 @@
-<?php require_once('../../../private/initialize.php'); ?>
+<?php require_once('../../../private/initialize.php'); 
+
+require_login();
+?>
+
 
 
 <?php $Admin_set = find_all("admins"); ?>

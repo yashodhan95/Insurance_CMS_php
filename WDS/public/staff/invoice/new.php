@@ -2,6 +2,8 @@
 
 require_once('../../../private/initialize.php');
 
+require_login();
+
 if(is_post_request()){
   $invoice = [];
   $invoice['Invoice_id'] = $_POST['Invoice_id'] ?? '';

@@ -864,7 +864,9 @@ function validate_vehicle_driver($vehicle_driver) {
   }
 
   //////////////////////ADMIN//////////////////////////////////  
-function validate_admin($admin) {
+function validate_admin($admin, $option=[]) {
+
+    $password_required = $option['password_required'] ?? True;
 
     $errors=[];
 
@@ -896,6 +898,9 @@ function validate_admin($admin) {
       $errors[] = "Username not allowed. Try another.";
     }
 
+    if($password_required)
+  {
+
     if(is_blank($admin['hashed_password'])) {
       $errors[] = "Password cannot be blank.";
     } elseif (!has_length($admin['hashed_password'], array('min' => 8))) {
@@ -915,6 +920,7 @@ function validate_admin($admin) {
     } elseif ($admin['hashed_password'] !== $admin['confirmed_password']) {
       $errors[] = "Password and confirm password must match.";
     }
+  }
 
     return $errors;
   }
@@ -955,8 +961,10 @@ function validate_admin($admin) {
 
   function update_admin($admin){
   global $db;
+
+  $password_sent = !is_blank($admin['hashed_password']);
   
-  $errors = validate_admin($admin);
+  $errors = validate_admin($admin, ['password_required' => $password_sent]);
     if(!empty($errors)) {
       return $errors;
     }
@@ -967,8 +975,11 @@ function validate_admin($admin) {
   $sql .= "first_name='" . db_escape($db,$admin['first_name']) . "',";
   $sql .= "last_name='" . db_escape($db,$admin['last_name']) . "',";
   $sql .= "email='" . db_escape($db,$admin['email']) . "',";
-  $sql .= "username='" . db_escape($db,$admin['username']) . "',";
-  $sql .= "hashed_password='" . db_escape($db,$hashed_password) . "' ";
+  if($password_sent){
+    $sql .= "hashed_password='" . db_escape($db,$hashed_password) . "',";
+  }
+  $sql .= "username='" . db_escape($db,$admin['username']) . "' ";
+  
   $sql .= "WHERE id='" . db_escape($db,$admin['id']) . "' ";
   $sql .= "Limit 1;";
 

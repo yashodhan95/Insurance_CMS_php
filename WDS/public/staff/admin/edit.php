@@ -1,6 +1,7 @@
 <?php
 
 require_once('../../../private/initialize.php');
+require_login();
 
 if(!isset($_GET['id'])) {
   redirect_to(url_for('/staff/admin/index.php'));
@@ -20,6 +21,7 @@ if(is_post_request()) {
   $admin['email'] = $_POST['email'] ?? '';
   $admin['username'] = $_POST['username'] ?? '';
   $admin['hashed_password'] = $_POST['hashed_password'] ?? '';
+  $admin['confirmed_password'] = $_POST['confirmed_password'] ?? '';
   
   $result = update_admin($admin);
 
@@ -68,6 +70,16 @@ if(is_post_request()) {
       <dl>
         <dt>username</dt>
         <dd><input type="text" name="username" value="<?php echo h($admin['username']); ?>" /></dd>
+      </dl>
+
+      <dl>
+        <dt>Password </dt>
+        <dd><input type="password" name="hashed_password" value="" /></dd>
+      </dl>
+
+       <dl>
+        <dt>Confirm Password </dt>
+        <dd><input type="password" name="confirmed_password" value="" /></dd>
       </dl>
  
       <div id="operations">

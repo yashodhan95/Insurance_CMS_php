@@ -1,4 +1,7 @@
-<?php require_once('../../../private/initialize.php'); ?>
+<?php require_once('../../../private/initialize.php'); 
+
+require_login();
+?>
 
 <?php
   $Vehicle_Driver_set = find_all("vehicle_driver");
