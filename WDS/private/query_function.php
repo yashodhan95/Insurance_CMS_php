@@ -880,7 +880,7 @@ function validate_admin($admin, $option=[]) {
       $errors[] = "Last name cannot be blank.";
     } elseif (!has_length($admin['last_name'], array('min' => 2, 'max' => 255))) {
       $errors[] = "Last name must be between 2 and 255 characters.";
-    }
+    }    
 
     if(is_blank($admin['email'])) {
       $errors[] = "Email cannot be blank.";

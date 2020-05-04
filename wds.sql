@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2020 at 05:38 PM
+-- Generation Time: May 04, 2020 at 07:00 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.4
 
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `wds`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admins`
+--
+
+CREATE TABLE `admins` (
+  `id` int(11) NOT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `hashed_password` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `admins`
+--
+
+INSERT INTO `admins` (`id`, `first_name`, `last_name`, `email`, `username`, `hashed_password`) VALUES
+(7, 'Yashodhan', 'Joshi', 'yj1400@nyu.edu', 'yashodhan1400', '$2y$10$WBDODGstKWgVfTCs5MoxquvGDEa1wnXFCBi14pSm.3FEQ4WQt9hx2'),
+(8, 'Rachana', 'Swamy', 's.rachana15@gmail.com', 'rachanachotuu', '$2y$10$3vTrWAtS3QxbqDcLF72U5uQGEphhF9rgk3JHETSPy/OgQRmc3TwN6');
 
 -- --------------------------------------------------------
 
@@ -60,7 +83,8 @@ INSERT INTO `customer` (`Cid`, `Fname`, `Lname`, `St`, `City`, `State`, `Zipcode
 ('100012', 'RACHANA', 'SWAMY', '555 25 ST', 'BROOKLYN', 'NY', '11217', 'F', '1966-05-08', 'S', 'A'),
 ('100013', 'JANE', 'DOE', '111 1ST', 'BROOKLYN', 'NY', '11111', NULL, '2001-01-01', 'W', 'H'),
 ('100020', 'Wayne', 'Rooney', 'Somewhere', 'Manchester', 'En', '11233', 'M', '2020-04-27', 'S', 'A'),
-('100025', 'Alex', 'Ferguson', '556 83rd ST, Apt #1', 'BROOKLYN', 'NY', '11209', 'M', '2020-04-30', 'M', 'H');
+('100025', 'Alex', 'Ferguson', '556 83rd ST, Apt #1', 'BROOKLYN', 'NY', '11209', 'M', '2020-04-30', 'M', 'H'),
+('100042', 'test', 'tetxt', 'TES', 'JKZKCKJZ', 'KJ', '12345', 'M', '2020-05-13', 'M', 'H');
 
 -- --------------------------------------------------------
 
@@ -94,7 +118,7 @@ INSERT INTO `drivers` (`License_no`, `D_Fname`, `D_Lname`, `D_DOB`) VALUES
 ('A996478148', 'TEST', 'TESTINGS', '0001-01-01'),
 ('A996778148', 'CR&', 'Roonttyq', '2020-05-28'),
 ('ABCDE12345', 'TEST1', 'TEST1', '2020-04-29'),
-('ABCDE12346', 'ROY', 'RODGERS', '2020-04-30');
+('ABCDE12346', 'RODNEY', 'RODGERS', '2020-04-30');
 
 -- --------------------------------------------------------
 
@@ -154,7 +178,7 @@ CREATE TABLE `invoice` (
 --
 
 INSERT INTO `invoice` (`Invoice_id`, `Due_Date`, `Invoice_amt`, `Policy_no`) VALUES
-('1000001', '2020-04-30', '1000.00', '100000000102'),
+('1000001', '2020-04-30', '997.00', '100000000102'),
 ('1000031', '2020-04-05', '8.00', '100000000101'),
 ('1001101', '2019-07-02', '425.00', '100000000101'),
 ('1001107', '2019-04-04', '2400.00', '100000000102'),
@@ -277,6 +301,40 @@ INSERT INTO `policy` (`Policy_no`, `P_Type`, `Cid`, `Start_Date`, `End_Date`, `P
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `request`
+--
+
+CREATE TABLE `request` (
+  `Request_time` datetime NOT NULL DEFAULT current_timestamp(),
+  `Fname` varchar(30) NOT NULL,
+  `Lname` varchar(30) NOT NULL,
+  `St` varchar(30) NOT NULL,
+  `City` varchar(30) NOT NULL,
+  `State` varchar(30) NOT NULL,
+  `Zipcode` int(5) NOT NULL,
+  `Gender` varchar(1) NOT NULL,
+  `DOB` date NOT NULL,
+  `M_Status` varchar(1) NOT NULL,
+  `Itype` varchar(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `request`
+--
+
+INSERT INTO `request` (`Request_time`, `Fname`, `Lname`, `St`, `City`, `State`, `Zipcode`, `Gender`, `DOB`, `M_Status`, `Itype`) VALUES
+('0000-00-00 00:00:00', 'Yashodhan', 'Joshi', '556 83rd ST', 'BROOKLYN', 'NY', 11209, 'M', '2020-05-12', 'S', 'H'),
+('2020-05-02 15:37:31', 'Tejas', 'Awasarmol', '19th Ellora, 20/21 Carter Road', 'MUMBAI', 'MAHARASHTRA', 40005, 'M', '2020-05-21', 'M', 'B'),
+('2020-05-02 15:39:47', 'test', 'test', 'test', 'test', 'tt', 11233, 'F', '2007-01-22', 'M', 'A'),
+('2020-05-02 15:52:40', 'Abel', 'Kumar', 'Test', 'Test', 'TT', 11209, 'M', '2020-05-07', 'W', 'A'),
+('2020-05-02 16:04:03', 'Abel', 'Kumar', 'Test', 'Test', 'TT', 11209, 'M', '2020-05-07', 'W', 'A'),
+('2020-05-02 16:07:16', 'lol', 'lol', 'lol', 'lol', 'lol', 11234, 'F', '2020-05-19', 'S', 'A'),
+('2020-05-04 12:12:56', 'Yashodhan', 'Joshi', '556 83rd ST, Apt #1', 'BROOKLYN', 'NY', 11209, 'M', '2020-05-22', 'M', 'H'),
+('2020-05-04 12:14:25', '', '', '', '', '', 0, '', '0000-00-00', '', '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `vehicle`
 --
 
@@ -352,6 +410,13 @@ INSERT INTO `vehicle_driver` (`Vin`, `License_no`, `Rating`) VALUES
 --
 
 --
+-- Indexes for table `admins`
+--
+ALTER TABLE `admins`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `index_username` (`username`);
+
+--
 -- Indexes for table `customer`
 --
 ALTER TABLE `customer`
@@ -392,6 +457,12 @@ ALTER TABLE `policy`
   ADD KEY `c_id` (`Cid`);
 
 --
+-- Indexes for table `request`
+--
+ALTER TABLE `request`
+  ADD PRIMARY KEY (`Request_time`);
+
+--
 -- Indexes for table `vehicle`
 --
 ALTER TABLE `vehicle`
@@ -404,6 +475,16 @@ ALTER TABLE `vehicle`
 ALTER TABLE `vehicle_driver`
   ADD PRIMARY KEY (`Vin`,`License_no`),
   ADD KEY `license_no` (`License_no`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `admins`
+--
+ALTER TABLE `admins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
