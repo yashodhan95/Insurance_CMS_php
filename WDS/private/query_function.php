@@ -836,7 +836,7 @@ function validate_vehicle_driver($vehicle_driver) {
   function insert_request($request){
   global $db;
 
-  $sql = "Insert into request_auto ";
+  $sql = "Insert into request ";
   $sql .= "(Fname, Lname, St, City, State, Zipcode, Gender, DOB, M_Status, Itype) ";
   $sql .= "values (";
   $sql .= "'" . db_escape($db,$request['Fname']) . "',";

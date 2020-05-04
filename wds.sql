@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2020 at 05:38 PM
+-- Generation Time: May 04, 2020 at 06:58 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.4
 
@@ -60,7 +60,8 @@ INSERT INTO `customer` (`Cid`, `Fname`, `Lname`, `St`, `City`, `State`, `Zipcode
 ('100012', 'RACHANA', 'SWAMY', '555 25 ST', 'BROOKLYN', 'NY', '11217', 'F', '1966-05-08', 'S', 'A'),
 ('100013', 'JANE', 'DOE', '111 1ST', 'BROOKLYN', 'NY', '11111', NULL, '2001-01-01', 'W', 'H'),
 ('100020', 'Wayne', 'Rooney', 'Somewhere', 'Manchester', 'En', '11233', 'M', '2020-04-27', 'S', 'A'),
-('100025', 'Alex', 'Ferguson', '556 83rd ST, Apt #1', 'BROOKLYN', 'NY', '11209', 'M', '2020-04-30', 'M', 'H');
+('100025', 'Alex', 'Ferguson', '556 83rd ST, Apt #1', 'BROOKLYN', 'NY', '11209', 'M', '2020-04-30', 'M', 'H'),
+('100042', 'test', 'tetxt', 'TES', 'JKZKCKJZ', 'KJ', '12345', 'M', '2020-05-13', 'M', 'H');
 
 -- --------------------------------------------------------
 
@@ -94,7 +95,7 @@ INSERT INTO `drivers` (`License_no`, `D_Fname`, `D_Lname`, `D_DOB`) VALUES
 ('A996478148', 'TEST', 'TESTINGS', '0001-01-01'),
 ('A996778148', 'CR&', 'Roonttyq', '2020-05-28'),
 ('ABCDE12345', 'TEST1', 'TEST1', '2020-04-29'),
-('ABCDE12346', 'ROY', 'RODGERS', '2020-04-30');
+('ABCDE12346', 'RODNEY', 'RODGERS', '2020-04-30');
 
 -- --------------------------------------------------------
 
@@ -154,7 +155,7 @@ CREATE TABLE `invoice` (
 --
 
 INSERT INTO `invoice` (`Invoice_id`, `Due_Date`, `Invoice_amt`, `Policy_no`) VALUES
-('1000001', '2020-04-30', '1000.00', '100000000102'),
+('1000001', '2020-04-30', '997.00', '100000000102'),
 ('1000031', '2020-04-05', '8.00', '100000000101'),
 ('1001101', '2019-07-02', '425.00', '100000000101'),
 ('1001107', '2019-04-04', '2400.00', '100000000102'),
