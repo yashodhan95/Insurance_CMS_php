@@ -7,6 +7,7 @@ if(is_post_request()){
   $request = [];
   $request['Fname'] = $_POST['Fname'] ?? '';
   $request['Lname'] = $_POST['Lname'] ?? '';
+  $request['Email'] = $_POST['Email'] ?? '';
   $request['St'] = $_POST['St'] ?? '';
   $request['City'] = $_POST['City'] ?? '';
   $request['State'] = $_POST['State'] ?? '';
@@ -30,6 +31,7 @@ if(is_post_request()){
 $request['Cid'] = '';
 $request['Fname'] = '';
 $request['Lname'] = '';
+$request['Email'] = '';
 $request['St'] = '';
 $request['City'] = '';
 $request['State'] = '';
@@ -60,6 +62,11 @@ $request['Itype'] = '';
       
       <dl>
         <dt>Last Name</dt>
+        <dd><input type="text" name="Lname" value="" /></dd>
+      </dl>
+      <dl>
+      <dl>
+        <dt>Email</dt>
         <dd><input type="text" name="Lname" value="" /></dd>
       </dl>
       <dl>

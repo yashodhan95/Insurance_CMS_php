@@ -1,5 +1,9 @@
 <?php require_once('../../private/initialize.php'); 
 
+$page_name='Home Insurance'; 
+$page_title='Home Insurance'; 
+
+
 if(is_post_request()){
 
   $report = [];

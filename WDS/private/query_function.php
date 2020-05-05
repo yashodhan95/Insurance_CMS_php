@@ -842,9 +842,12 @@ function validate_vehicle_driver($vehicle_driver) {
 
   function insert_request($request){
   global $db;
-
+  $errors = validate_request($request);
+    if(!empty($errors)) {
+      return $errors;
+    }
   $sql = "Insert into request ";
-  $sql .= "(Fname, Lname, St, City, State, Zipcode, Gender, DOB, M_Status, Itype) ";
+  $sql .= "(Fname, Lname, Email, St, City, State, Zipcode, Gender, DOB, M_Status, Itype) ";
   $sql .= "values (";
   $sql .= "'" . db_escape($db,$request['Fname']) . "',";
   $sql .= "'" . db_escape($db,$request['Lname']) . "',";
