@@ -25,11 +25,11 @@
 
         <div class="bottom_nav">
           <ul style="list-style-type:none;">
-            <li><a href="<?php echo url_for('/home_insurance/home_insurance.php'); ?>">Home Insurance</a></li>
-            <li><a href="<?php echo url_for('/auto_insurance/auto_insurance.php'); ?>">Auto Insurance</a></li>
+            <li><a href="<?php echo url_for('/customer/new.php'); ?>">Home Insurance</a></li>
+            <li><a href="<?php echo url_for('/customer/new.php'); ?>">Auto Insurance</a></li>
             <li><a href="<?php echo url_for('/about_wds/about.php'); ?>">Claims</a></li>
             <li><a href="<?php echo url_for('/about_wds/about.php'); ?>">About WDS</a></li>
-            <li><a class="button" href="<?php echo url_for('/auto_insurance/auto_old_customer.php'); ?>"><button>Customer Login</button></a></li>
+            <li><a class="button" href="<?php echo url_for('/customer/login.php'); ?>"><button>Customer Login</button></a></li>
           </ul>
         </div>
     </div>

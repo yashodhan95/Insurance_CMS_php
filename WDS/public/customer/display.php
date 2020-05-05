@@ -1,4 +1,7 @@
-<?php require_once('../../private/initialize.php'); ?>
+<?php require_once('../../private/initialize.php'); 
+
+customer_require_login();
+?>
 
 <?php 
   $id = $_GET['id'] ?? '1';
@@ -49,6 +52,12 @@
         	</dl>
 
         </div>
+
+          <div>
+                    
+                <h3><a href="<?php echo url_for('/customer/logout.php'); ?>">Logout</a></li><h3>
+            
+          </div>
         
     </div>
 </div>

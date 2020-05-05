@@ -1,5 +1,7 @@
 <?php require_once('../../private/initialize.php'); 
 
+customer_require_login();
+
 if (is_post_request()) {
 
 $report = [];
@@ -23,7 +25,7 @@ redirect_to(url_for('/customer/display.php?id=' . h(u($report['Cid'])) . '&id2='
     
     <div id="content">
 
-    	<a class="back-link" href="<?php echo url_for('/customer/index.php'); ?>">&laquo; Back</a>
+    	<!--<a class="back-link" href="<?php echo url_for('/customer/index.php'); ?>">&laquo; Back</a> -->
 
     	<class id = "customer login">
 
@@ -45,6 +47,13 @@ redirect_to(url_for('/customer/display.php?id=' . h(u($report['Cid'])) . '&id2='
       		<div id="operations">
         		<input type="submit" value="submit" />
       		</div>
+
+          <div>
+              
+                <h3><a href="<?php echo url_for('/customer/logout.php'); ?>">Logout</a></li><h3>
+           
+          </div>
+
 
 
       	</form>

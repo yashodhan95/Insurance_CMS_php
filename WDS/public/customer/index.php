@@ -19,7 +19,7 @@ if($report['new_old'] == "N") {
 } 
 elseif($report['new_old'] == "E") {
 	#echo "Old";
-	redirect_to(url_for('/customer/old.php'));
+	redirect_to(url_for('/customer/login.php'));
 }
 else {
 

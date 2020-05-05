@@ -25,7 +25,7 @@ if(is_post_request()) {
       
       if(password_verify($password, $admin['hashed_password'])){
         //password matches
-          log_in_admin($admin);
+          log_in_customer($admin);
           #$_SESSION['message'] = 'Login Succesful!';
            redirect_to(url_for('/customer/show.php'));
       }
@@ -67,7 +67,7 @@ if(is_post_request()) {
 
 <div>
   <ul>         
-     <li><a href="<?php echo url_for('/customer/index.php'); ?>">Logout</a></li><br>
+     <li><a href="<?php echo url_for('/customer/logout.php'); ?>">Logout</a></li><br>
   </ul>
 </div>
 
