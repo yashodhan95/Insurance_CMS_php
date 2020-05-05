@@ -27,7 +27,7 @@ if(is_post_request()) {
         //password matches
           log_in_customer($admin);
           #$_SESSION['message'] = 'Login Succesful!';
-           redirect_to(url_for('/customer/show.php'));
+          redirect_to(url_for('/customer/show.php'));
       }
       else{
         //username correct but password wrong
@@ -63,12 +63,14 @@ if(is_post_request()) {
     <input type="submit" name="submit" value="Submit"  />
   </form>
 
+  <h3><a href="<?php echo url_for('/customer/logout.php'); ?>">Logout</a></h3><br>
+
 </div>
 
 <div>
-  <ul>         
-     <li><a href="<?php echo url_for('/customer/logout.php'); ?>">Logout</a></li><br>
-  </ul>
+        
+     
+  
 </div>
 
 <?php include(SHARED_PATH . '/public_footer.php'); ?>
