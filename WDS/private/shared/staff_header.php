@@ -23,6 +23,7 @@
             <li><a href="<?php echo url_for('/staff/index.php'); ?>">Main Menu</a></li>
            
             <li>User: <?php echo $_SESSION['username'] ?? ''; ?></li>
+            <li>User ID: <?php echo $_SESSION['id'] ?? ''; ?></li>
             <li><a href="<?php echo url_for('/staff/logout.php'); ?>">Logout</a></li><br>
             
 

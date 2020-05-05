@@ -22,7 +22,7 @@
   }
 
   function customer_require_login(){
-    if (!is_logged_in()){
+    if (!customer_is_logged_in()){
       redirect_to(url_for('/customer/login.php'));
     }else{
       //do nothing

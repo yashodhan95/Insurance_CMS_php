@@ -1,6 +1,6 @@
 <?php require_once('../../private/initialize.php'); 
 
-#customer_require_login();
+customer_require_login();
 
 if (is_post_request()) {
 
@@ -20,6 +20,7 @@ redirect_to(url_for('/customer/display.php?id=' . h(u($report['Cid'])) . '&id2='
 	<div id="Page">
 
 	<h1>Welcome Back</h1>
+  <h3>User: <?php echo $_SESSION['username'] ?? ''; ?></h3>
     
 
     

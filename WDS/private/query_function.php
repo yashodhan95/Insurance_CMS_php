@@ -1137,7 +1137,7 @@ function validate_admin($admin, $option=[]) {
 
   function find_customer_login($id){
     global $db;
-      $sql = "SELECT * FROM customer_login ";
+      $sql = "SELECT Cid, username, hashed_password FROM customer_login ";
       $sql .="WHERE username='" . db_escape($db,$id) . "';";
       $result = mysqli_query($db, $sql);
       confirm_result_set($result);

@@ -20,6 +20,7 @@
     <div class="customer show">
     
         <h2> Customer Number: <?php echo h($customer['Cid']); ?></h2>
+        <h3>User: <?php echo $_SESSION['username'] ?? ''; ?></h3>
 
         <div class = "attributes"> 
         	<dl>

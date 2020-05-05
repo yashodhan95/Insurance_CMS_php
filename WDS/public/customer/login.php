@@ -52,6 +52,8 @@ if(is_post_request()) {
 <div id="content">
   <h1>Customer Log In</h1>
   <h3>User: <?php echo $_SESSION['username'] ?? ''; ?></h3>
+  <!--<h3>User Id: <?php echo $_SESSION['id'] ?? ''; ?></h3> -->
+
   <?php echo display_errors($errors); ?>
   
 
