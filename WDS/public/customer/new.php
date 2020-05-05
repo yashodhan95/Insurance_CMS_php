@@ -70,6 +70,11 @@ $request['Itype'] = '';
       </dl>
 
       <dl>
+      <dl>
+        <dt>Email</dt>
+        <dd><input type="text" name="Lname" value="" /></dd>
+      </dl>
+      <dl>
         <dt>Street Address</dt>
         <dd><input type="text" name="St" value="" /></dd>
       </dl>

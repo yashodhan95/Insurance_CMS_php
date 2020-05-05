@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <navigation>
   
   <ul class="subjects">
@@ -19,3 +20,5 @@
   </ul>
   
 </navigation>
+=======
+>>>>>>> ac7428175e3f0d6718e6c7f46299aa6c0d655689
