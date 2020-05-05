@@ -844,7 +844,7 @@ function validate_vehicle_driver($vehicle_driver) {
   global $db;
 
   $sql = "Insert into request ";
-  $sql .= "(Fname, Lname, St, City, State, Zipcode, Gender, DOB, M_Status, Itype) ";
+  $sql .= "(Fname, Lname, Email, St, City, State, Zipcode, Gender, DOB, M_Status, Itype) ";
   $sql .= "values (";
   $sql .= "'" . db_escape($db,$request['Fname']) . "',";
   $sql .= "'" . db_escape($db,$request['Lname']) . "',";
@@ -1017,6 +1017,134 @@ function validate_admin($admin, $option=[]) {
       mysqli_free_result($result);
       return $parcel;
     }
+
+
+    function validate_customer_login($customer_login, $option=[]) {
+
+    $password_required = $option['password_required'] ?? True;
+
+    $errors=[];
+
+    if(is_blank($customer_login['Cid'])) {
+      $errors[] = "Cid cannot be blank. It must have 6 digits.";
+      } elseif(!has_length($customer_login['Cid'],['exact'=>'6'])) {
+      $errors[] = "Cid must have 6 digits. ";
+    }
+
+    if(is_blank($customer_login['username'])) {
+      $errors[] = "Last name cannot be blank.";
+    } elseif (!has_length($customer_login['username'], array('min' => 2, 'max' => 255))) {
+      $errors[] = "Last name must be between 2 and 255 characters.";
+    }    
+
+    if($password_required)
+  {
+
+    if(is_blank($customer_login['hashed_password'])) {
+      $errors[] = "Password cannot be blank.";
+    } elseif (!has_length($customer_login['hashed_password'], array('min' => 8))) {
+      $errors[] = "Password must contain 9 or more characters";
+    } elseif (!preg_match('/[A-Z]/', $customer_login['hashed_password'])) {
+      $errors[] = "Password must contain at least 1 uppercase letter";
+    } elseif (!preg_match('/[a-z]/', $customer_login['hashed_password'])) {
+      $errors[] = "Password must contain at least 1 lowercase letter";
+    } elseif (!preg_match('/[0-9]/', $customer_login['hashed_password'])) {
+      $errors[] = "Password must contain at least 1 number";
+    } elseif (!preg_match('/[^A-Za-z0-9\s]/', $customer_login['hashed_password'])) {
+      $errors[] = "Password must contain at least 1 symbol";
+    }
+
+    if(is_blank($customer_login['confirmed_password'])) {
+      $errors[] = "Confirm password cannot be blank.";
+    } elseif ($customer_login['hashed_password'] !== $customer_login['confirmed_password']) {
+      $errors[] = "Password and confirm password must match.";
+    }
+  }
+
+    return $errors;
+  }
+
+  
+  function insert_customer_login($customer_login) {
+  global $db;
+    
+  $errors = validate_customer_login($customer_login);
+    if(!empty($errors)) {
+      return $errors;
+    }
+
+  $hashed_password = password_hash($customer_login['hashed_password'], PASSWORD_BCRYPT);
+
+  $sql = "INSERT INTO customer_login ";
+  $sql .= "(Cid, username, hashed_password) ";
+  $sql .= "VALUES (";
+  $sql .= "'" . db_escape($db,$customer_login['Cid']) . "',";
+  $sql .= "'" . db_escape($db,$customer_login['username']) . "',";
+  $sql .= "'" . db_escape($db,$hashed_password) . "'";
+ 
+  $sql .= ")";
+
+  $result = mysqli_query($db, $sql);
+
+    if($result){
+    return true;
+    } else {
+    //insert failed
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
+    }
+  }
+
+  function update_customer_login($customer_login){
+  global $db;
+
+  $password_sent = !is_blank($customer_login['hashed_password']);
+  
+  $errors = validate_customer_login($customer_login, ['password_required' => $password_sent]);
+    if(!empty($errors)) {
+      return $errors;
+    }
+
+  $hashed_password = password_hash($customer_login['hashed_password'], PASSWORD_BCRYPT);
+
+  $sql = "UPDATE customer_login SET ";
+  $sql .= "Cid='" . db_escape($db,$customer_login['Cid']) . "',";
+  $sql .= "username='" . db_escape($db,$customer_login['username']) . "',";
+  if($password_sent){
+    $sql .= "hashed_password='" . db_escape($db,$hashed_password) . "' ";
+  }
+ 
+  $sql .= "WHERE Cid='" . db_escape($db,$customer_login['Cid']) . "' ";
+  $sql .= "Limit 1;";
+
+
+  $result = mysqli_query($db, $sql);
+  //for insert statement the result is True or False
+
+  if($result){
+    return true;
+  } else {
+    //insert failed
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
+  }
+  }
+
+  function find_customer_login($id){
+    global $db;
+      $sql = "SELECT * FROM customer_login ";
+      $sql .="WHERE username='" . db_escape($db,$id) . "';";
+      $result = mysqli_query($db, $sql);
+      confirm_result_set($result);
+
+      $parcel = mysqli_fetch_assoc($result);
+
+      mysqli_free_result($result);
+      return $parcel;
+    }
+
 
 
 ?>

@@ -6,28 +6,28 @@ $report = [];
 $report['Cid'] = $_POST['Cid'] ?? '';
 $report['Policy'] = $_POST['Policy'] ?? '';
 
-redirect_to(url_for('/home_insurance/show.php?id=' . h(u($report['Cid'])) . '&id2=' . h(u($report['Policy'])) ));
+redirect_to(url_for('/customer/display.php?id=' . h(u($report['Cid'])) . '&id2=' . h(u($report['Policy'])) ));
  }
  ?>
 
 
-<?php $page_title = 'Welcome Customer'; ?>
+<?php $page_title = 'Auto Insurance'; ?>
 <?php include(SHARED_PATH . '/public_header.php'); ?>
 
 <div id="Main">
 	<div id="Page">
 
-	<h1>Welcome Old Customer</h1>
+	<h1>Welcome Back</h1>
     
 
     
     <div id="content">
 
-    	<a class="back-link" href="<?php echo url_for('/home_insurance/home_insurance.php'); ?>">&laquo; Back</a>
+    	<a class="back-link" href="<?php echo url_for('/customer/index.php'); ?>">&laquo; Back</a>
 
     	<class id = "customer login">
 
-    		<form action="<?php echo url_for('/home_insurance/home_old_customer.php'); ?>" method="post">
+    		<form action="<?php echo url_for('/customer/show.php'); ?>" method="post">
     		 <dl>
         		<dt>Enter Customer Number</dt>
         		<dd><input type="number" name="Cid" required min ="1" max = "999999" value="<?php //echo h($customer['Cid']); ?>" /></dd>

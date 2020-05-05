@@ -15,7 +15,7 @@ if($report['new_old'] == "N") {
 } 
 elseif($report['new_old'] == "E") {
 	#echo "Old";
-	redirect_to(url_for('/auto_insurance/auto_old_customer.php'));
+	redirect_to(url_for('/auto_insurance/login.php'));
 }
 else {
 

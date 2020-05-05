@@ -7,6 +7,7 @@ if(is_post_request()){
   $request = [];
   $request['Fname'] = $_POST['Fname'] ?? '';
   $request['Lname'] = $_POST['Lname'] ?? '';
+  $request['Email'] = $_POST['Email'] ?? '';
   $request['St'] = $_POST['St'] ?? '';
   $request['City'] = $_POST['City'] ?? '';
   $request['State'] = $_POST['State'] ?? '';
@@ -21,15 +22,15 @@ if(is_post_request()){
 
   if($result===true){
     $new_id = mysqli_insert_id($db);
-    redirect_to(url_for('/home_insurance/home_insurance.php'));
+    redirect_to(url_for('/customer/thank_you.php?id=' . h(u($request['Fname'])) .'&id2=' . h(u($request['Itype']))));
 
   } else {
   $errors = $result;
   }
 } else {
-$request['Cid'] = '';
 $request['Fname'] = '';
 $request['Lname'] = '';
+$request['Email'] = '';
 $request['St'] = '';
 $request['City'] = '';
 $request['State'] = '';
@@ -46,12 +47,12 @@ $request['Itype'] = '';
 
 <div id="content">
 
-  <a class="back-link" href="<?php echo url_for('/home_insurance/home_insurance.php'); ?>">&laquo; Back</a>
+  <a class="back-link" href="<?php echo url_for('/customer/index.php'); ?>">&laquo; Back</a>
 
   <div class="request edit">
     <h1>Enter Details</h1>
     <?php echo display_errors($errors); ?>
-    <form action="<?php echo url_for('/home_insurance/homes_new_customer.php'); ?>" method="post">
+    <form action="<?php echo url_for('/customer/new.php'); ?>" method="post">
      
       <dl>
         <dt>First Name</dt>
@@ -62,6 +63,12 @@ $request['Itype'] = '';
         <dt>Last Name</dt>
         <dd><input type="text" name="Lname" value="" /></dd>
       </dl>
+
+      <dl>
+        <dt>Email Address</dt>
+        <dd><input type="text" name="Email" value="" /></dd>
+      </dl>
+
       <dl>
         <dt>Street Address</dt>
         <dd><input type="text" name="St" value="" /></dd>
