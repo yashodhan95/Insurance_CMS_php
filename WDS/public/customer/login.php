@@ -22,7 +22,7 @@ if(is_post_request()) {
     $admin = find_customer_login($username);
 
     if($admin){
-      
+
       if(password_verify($password, $admin['hashed_password'])){
         //password matches
           log_in_customer($admin);
@@ -41,7 +41,7 @@ if(is_post_request()) {
   }
 
 
-  
+
 }
 
 ?>
@@ -49,13 +49,13 @@ if(is_post_request()) {
 <?php $page_title = 'Customer Log In'; ?>
 <?php include(SHARED_PATH . '/public_header.php'); ?>
 
-<div id="content">
-  <h1>Customer Log In</h1>
+<div class="content">
+  <h1>Customer Login</h1>
   <h3>User: <?php echo $_SESSION['username'] ?? ''; ?></h3>
   <!--<h3>User Id: <?php echo $_SESSION['id'] ?? ''; ?></h3> -->
 
   <?php echo display_errors($errors); ?>
-  
+
 
   <form action="login.php" method="post">
     Username:<br />
@@ -65,15 +65,14 @@ if(is_post_request()) {
     <input type="submit" name="submit" value="Submit"  />
   </form>
 
-  <h3><a href="<?php echo url_for('/customer/logout.php'); ?>">Logout</a></h3><br>
+  <h4><a href="<?php echo url_for('/customer/logout.php'); ?>">Logout</a></h4><br>
 
 </div>
 
 <div>
-        
-     
-  
+
+
+
 </div>
 
 <?php include(SHARED_PATH . '/public_footer.php'); ?>
-

@@ -45,7 +45,7 @@ $request['Itype'] = '';
 <?php $page_title = 'Welcome to WDS'; ?>
 <?php include(SHARED_PATH . '/public_header.php'); ?>
 
-<div id="content">
+<div class="content2">
 
   <a class="back-link" href="<?php echo url_for('/customer/index.php'); ?>">&laquo; Back</a>
 
@@ -53,12 +53,12 @@ $request['Itype'] = '';
     <h1>Enter Details</h1>
     <?php echo display_errors($errors); ?>
     <form action="<?php echo url_for('/customer/new.php'); ?>" method="post">
-     
+
       <dl>
         <dt>First Name</dt>
         <dd><input type="text" name="Fname" value="" /></dd>
       </dl>
-      
+
       <dl>
         <dt>Last Name</dt>
         <dd><input type="text" name="Lname" value="" /></dd>
@@ -83,7 +83,7 @@ $request['Itype'] = '';
         <dt>City</dt>
         <dd><input type="text" name="City" value="" /></dd>
       </dl>
-      
+
       <dl>
         <dt>State </dt>
         <dd><input type="text" name="State" value="" /></dd>
